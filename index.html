@@ -9,9 +9,9 @@
   
   <style>
     :root {
-      --custom-text-color: inherit;
+      --custom-text-color: #000;
       --custom-border-color: transparent;
-      --custom-bg-tint: transparent;
+      --custom-bg-tint: rgba(255, 255, 255, 0.85);
       --icon-filter: none;
     }
     
@@ -19,7 +19,7 @@
     
     #monitor-station { flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px; }
     
-    .monitor-bezel { width: 100%; max-width: 1000px; height: 80vh; position: relative; transition: all 0.5s ease; }
+    .monitor-bezel { width: 100%; max-width: 1050px; height: 82vh; position: relative; transition: all 0.5s ease; }
     .bezel-70s { background-color: #1a1a1a; padding: 40px; border-radius: 40px; box-shadow: 0 15px 40px rgba(0,0,0,0.9); }
     .bezel-90s { background-color: #e0d8c8; padding: 30px 30px 40px 30px; border-radius: 5px; box-shadow: 0 15px 40px rgba(0,0,0,0.9), inset 0 5px 15px rgba(255,255,255,0.8); }
     .bezel-2000s { background-color: #2a2a2a; padding: 20px 20px 40px 20px; border-radius: 15px; box-shadow: 0 15px 40px rgba(0,0,0,0.9), inset 0 2px 5px rgba(255,255,255,0.1); }
@@ -27,7 +27,7 @@
     
     .power-light { position: absolute; bottom: 15px; right: 30px; width: 8px; height: 8px; background-color: #39ff14; border-radius: 50%; box-shadow: 0 0 8px #39ff14; }
     
-    .screen { background-size: cover; background-position: center; width: 100%; height: 100%; position: relative; overflow: hidden; border: 2px solid #000; transition: all 0.3s ease; }
+    .screen { background-size: cover; background-position: center; width: 100%; height: 100%; position: relative; overflow: hidden; border: 2px solid #000; display: flex; flex-direction: column; transition: all 0.3s ease; }
     
     #control-deck { width: 320px; background-color: #111; color: #39ff14; border-left: 2px solid #222; padding: 20px; font-family: monospace; overflow-y: auto; box-shadow: -5px 0 15px rgba(0,0,0,0.8); }
     #control-deck h2 { text-align: center; border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 0; }
@@ -35,19 +35,31 @@
     .control-group label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #fff; }
     .control-group select, .control-group input[type="range"] { width: 100%; background: #222; color: #39ff14; border: 1px solid #444; padding: 8px; box-sizing: border-box; }
     
-    #desktop-area { position: relative; z-index: 10; height: 100%; padding: 20px; display: flex; flex-direction: column; gap: 15px; align-items: flex-start; }
+    /* DESKTOP & TASKBAR ARCHITECTURE */
+    #desktop-workspace { flex: 1; position: relative; padding: 20px; display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
     
-    /* DYNAMIC ICON STYLES */
-    .desktop-icon { text-align: center; color: var(--custom-text-color, white); text-shadow: 1px 1px 3px black; cursor: pointer; filter: var(--icon-filter); transition: all 0.2s; }
-    .desktop-icon:hover { background: rgba(255,255,255,0.2); border-radius: 5px; }
-    .icon-70s { font-family: monospace; font-size: 18px; text-shadow: none; background: var(--custom-bg-tint); border: 1px solid var(--custom-border-color); padding: 5px; }
-    .icon-90s { font-size: 12px; width: 70px; }
-    .icon-90s span { font-size: 35px; display: block; margin-bottom: 5px; }
-    .icon-2000s { font-size: 13px; width: 80px; }
-    .icon-2000s span { font-size: 45px; display: block; margin-bottom: 5px; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+    .desktop-icon { text-align: center; color: var(--custom-text-color, #fff); text-shadow: 1px 1px 3px rgba(0,0,0,0.8); cursor: pointer; filter: var(--icon-filter); transition: all 0.2s; width: 80px; font-size: 12px; }
+    .desktop-icon:hover { background: rgba(255,255,255,0.2); border-radius: 4px; }
+    .desktop-icon span { font-size: 40px; display: block; margin-bottom: 4px; }
+
+    /* AUTHENTIC TASKBARS / DOCKS */
+    .taskbar { height: 35px; width: 100%; display: flex; align-items: center; padding: 0 5px; box-sizing: border-box; z-index: 50; font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 12px; }
     
-    /* APP WINDOW DYNAMIC PALETTE */
-    #app-window { position: absolute; top: 10%; left: 10%; width: 80%; min-height: 400px; display: none; border: 2px solid var(--custom-border-color) !important; background-color: var(--custom-bg-tint) !important; }
+    /* Windows XP Taskbar */
+    .taskbar-xp { background: linear-gradient(to bottom, #1f2f86 0%, #1738c7 50%, #102594 100%); border-top: 1px solid #6085ff; color: white; }
+    .start-btn-xp { background: linear-gradient(to bottom, #3c893c 0%, #2e732e 50%, #1f571f 100%); border: 1px solid #44b544; border-radius: 4px; padding: 2px 12px; color: white; font-weight: bold; font-style: italic; cursor: pointer; display: flex; align-items: center; gap: 5px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.4); }
+
+    /* Windows Vista / 7 Aero Taskbar */
+    .taskbar-aero { background: rgba(20, 40, 70, 0.6); backdrop-filter: blur(15px); border-top: 1px solid rgba(255,255,255,0.4); color: white; height: 40px; }
+    .start-btn-aero { width: 34px; height: 34px; background: radial-gradient(circle, rgba(60,140,220,0.9) 0%, rgba(10,40,90,0.9) 100%); border: 1px solid rgba(255,255,255,0.6); border-radius: 50%; cursor: pointer; box-shadow: 0 0 10px rgba(0,150,255,0.6); }
+
+    /* Mac OS X Dock */
+    .dock-osx { background: rgba(240, 240, 240, 0.4); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.6); border-radius: 15px 15px 0 0; height: 60px; width: 60%; margin: 0 auto; display: flex; justify-content: center; align-items: center; gap: 15px; z-index: 50; box-shadow: 0 -5px 20px rgba(0,0,0,0.2); }
+    .dock-icon { font-size: 30px; cursor: pointer; transition: transform 0.2s; }
+    .dock-icon:hover { transform: scale(1.3); }
+
+    /* APP WINDOW */
+    #app-window { position: absolute; top: 10%; left: 10%; width: 80%; min-height: 380px; display: none; z-index: 90; border: 2px solid var(--custom-border-color) !important; background-color: var(--custom-bg-tint) !important; }
     .window-body, .window-body h2, .window-body p { color: var(--custom-text-color) !important; }
     
     #screen-filter { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 100; }
@@ -74,24 +86,37 @@
         <div class="glass-glare"></div>
         <div id="screen-filter" class="filter-modern"></div>
         
-        <!-- THE DYNAMIC DESKTOP AREA -->
-        <div id="desktop-area"></div>
+        <!-- THE WORKSPACE -->
+        <div id="desktop-workspace">
+          <div class="desktop-icon" onclick="openApp()">
+            <span>🌐</span>
+            <div>Aero Browser</div>
+          </div>
+          <div class="desktop-icon" onclick="openApp()">
+            <span>🎵</span>
+            <div>Media Player</div>
+          </div>
 
-        <!-- THE APP WINDOW -->
-        <div id="app-window" class="window glass-window">
-          <div class="title-bar">
-            <div class="title-bar-text">Application Directory</div>
-            <div class="title-bar-controls">
-              <button aria-label="Minimize"></button>
-              <button aria-label="Maximize"></button>
-              <button aria-label="Close" onclick="closeApp()"></button>
+          <!-- APP WINDOW -->
+          <div id="app-window" class="window glass-window">
+            <div class="title-bar">
+              <div class="title-bar-text">Application Directory</div>
+              <div class="title-bar-controls">
+                <button aria-label="Minimize"></button>
+                <button aria-label="Maximize"></button>
+                <button aria-label="Close" onclick="closeApp()"></button>
+              </div>
+            </div>
+            <div class="window-body">
+              <h2>Welcome to the Directory</h2>
+              <p>Explore sources, summaries, and digital culture archives.</p>
             </div>
           </div>
-          <div class="window-body">
-            <h2>Welcome to the Directory</h2>
-            <p>Explore the evolution of digital culture.</p>
-          </div>
         </div>
+
+        <!-- DYNAMIC TASKBAR CONTAINER -->
+        <div id="desktop-taskbar"></div>
+
       </div>
     </div>
   </div>
@@ -116,12 +141,12 @@
     </div>
     
     <div class="control-group">
-      <label>UI Palette (Borders & Icons)</label>
+      <label>UI Palette</label>
       <select id="palette-select"></select>
     </div>
 
     <div class="control-group">
-      <label>Text Style (Preset Colors)</label>
+      <label>Text Style</label>
       <select id="text-color-select"></select>
     </div>
 
@@ -137,79 +162,61 @@
   </div>
 
   <script>
-    // The Central Data Dictionary holding layouts, CSS links, and presets
     const eraData = {
       "70s": { 
-        displays: ["CRT Vector Phosphor"], 
-        curvesAllowed: true,
-        bezelClass: "monitor-bezel bezel-70s",
+        displays: ["CRT Vector Phosphor"], curvesAllowed: true, bezelClass: "monitor-bezel bezel-70s",
         wallpaper: "#000000",
-        desktopHTML: `<div class="desktop-icon icon-70s" onclick="openApp()">> RUN COMPANION.EXE _</div>`,
-        flavors: [
-          { name: "Standard Terminal", css: "https://cdn.jsdelivr.net/npm/terminal.css@0.7.2/dist/terminal.min.css" }
-        ],
-        palettes: [
-          { name: "Hacker Contrast", border: "#39ff14", bg: "rgba(0,20,0,0.8)", filter: "none" },
-          { name: "Ghost Box", border: "#ffffff", bg: "rgba(20,20,20,0.8)", filter: "grayscale(100%)" }
-        ],
-        textColors: [
-          { name: "Phosphor Green", hex: "#39ff14" },
-          { name: "Amber", hex: "#ffbf00" },
-          { name: "White", hex: "#ffffff" }
-        ]
+        taskbarHTML: `<div class="taskbar" style="background:#000; color:#39ff14; border-top:1px solid #333;">C:\\> SYSTEM READY</div>`,
+        flavors: [{ name: "Standard Terminal", css: "https://cdn.jsdelivr.net/npm/terminal.css@0.7.2/dist/terminal.min.css" }],
+        palettes: [{ name: "Hacker Contrast", border: "#39ff14", bg: "rgba(0,20,0,0.8)" }],
+        textColors: [{ name: "Phosphor Green", hex: "#39ff14" }, { name: "Amber", hex: "#ffbf00" }]
       },
       "80s": { 
-        displays: ["CRT Shadow Mask", "CRT Aperture Grille"], 
-        curvesAllowed: true,
-        bezelClass: "monitor-bezel bezel-90s",
+        displays: ["CRT Shadow Mask", "CRT Aperture Grille"], curvesAllowed: true, bezelClass: "monitor-bezel bezel-90s",
         wallpaper: "#008080",
-        desktopHTML: `<div class="desktop-icon icon-90s" onclick="openApp()"><span>💾</span>Directory</div>`,
+        taskbarHTML: `<div class="taskbar" style="background:#c0c0c0; border-top:2px solid #fff; color:#000;"><span>Program Manager</span></div>`,
         flavors: [
           { name: "Windows 1.0 / 2.0", css: "https://cdn.jsdelivr.net/npm/98.css@0.1.17/build/98.min.css" },
           { name: "Mac System 6", css: "https://cdn.jsdelivr.net/npm/@sakun/system.css@1.0.4/dist/system.css" }
         ],
-        palettes: [
-          { name: "Default System", border: "transparent", bg: "transparent", filter: "none" },
-          { name: "High Contrast", border: "#ffffff", bg: "#000000", filter: "grayscale(100%) contrast(200%)" }
-        ],
-        textColors: [
-          { name: "System Black", hex: "#000000" },
-          { name: "System White", hex: "#ffffff" }
-        ]
+        palettes: [{ name: "Default System", border: "transparent", bg: "transparent" }],
+        textColors: [{ name: "System Black", hex: "#000000" }, { name: "System White", hex: "#ffffff" }]
       },
       "90s": { 
-        displays: ["CRT Aperture Grille", "Early LCD"], 
-        curvesAllowed: true,
-        bezelClass: "monitor-bezel bezel-90s",
+        displays: ["CRT Aperture Grille", "Early LCD"], curvesAllowed: true, bezelClass: "monitor-bezel bezel-90s",
         wallpaper: "#008080",
-        desktopHTML: `<div class="desktop-icon icon-90s" onclick="openApp()"><span>🌐</span>Internet Browser</div><div class="desktop-icon icon-90s" onclick="openApp()"><span>📁</span>My Documents</div>`,
+        taskbarHTML: `<div class="taskbar" style="background:#c0c0c0; border-top:2px solid #fff; color:#000; display:flex; gap:10px; padding:2px;"><button style="font-weight:bold; padding:2px 10px;">🪟 Start</button><div style="border-left:1px solid #808080; height:20px;"></div><span>Internet Explorer</span></div>`,
         flavors: [
           { name: "Windows 95/98", css: "https://cdn.jsdelivr.net/npm/98.css@0.1.17/build/98.min.css" },
           { name: "Mac OS 9", css: "https://cdn.jsdelivr.net/npm/@sakun/system.css@1.0.4/dist/system.css" }
         ],
-        palettes: [
-          { name: "Standard Grey", border: "transparent", bg: "transparent", filter: "none" },
-          { name: "Vaporwave Tint", border: "#ff00ff", bg: "rgba(0,255,255,0.2)", filter: "hue-rotate(90deg)" }
-        ],
-        textColors: [
-          { name: "Black", hex: "#000000" },
-          { name: "Navy Blue", hex: "#000080" }
-        ]
+        palettes: [{ name: "Standard Grey", border: "transparent", bg: "transparent" }],
+        textColors: [{ name: "Black", hex: "#000000" }, { name: "Navy Blue", hex: "#000080" }]
       },
       "2000s": { 
-        displays: ["CRT Flat-Screen", "Standard LCD"], 
-        curvesAllowed: true,
-        bezelClass: "monitor-bezel bezel-2000s",
+        displays: ["CRT Flat-Screen", "Standard LCD"], curvesAllowed: true, bezelClass: "monitor-bezel bezel-2000s",
         wallpaper: "url('PASTE_YOUR_IMAGE_LINK_HERE')", 
-        desktopHTML: `<div class="desktop-icon icon-2000s" onclick="openApp()"><span>🌐</span>Aero Browser</div><div class="desktop-icon icon-2000s" onclick="openApp()"><span>🎵</span>Media Player</div>`,
         flavors: [
-          { name: "Windows Vista / 7", css: "https://cdn.jsdelivr.net/npm/7.css/dist/7.css" },
-          { name: "Windows XP", css: "https://cdn.jsdelivr.net/npm/xp.css@0.2.2/dist/XP.css" }
+          { 
+            name: "Windows Vista / 7", 
+            css: "https://cdn.jsdelivr.net/npm/7.css/dist/7.css",
+            taskbar: `<div class="taskbar taskbar-aero"><button class="start-btn-aero" onclick="openApp()"></button><span style="margin-left:10px; font-weight:600;">Aero Desktop</span></div>`
+          },
+          { 
+            name: "Windows XP", 
+            css: "https://cdn.jsdelivr.net/npm/xp.css@0.2.2/dist/XP.css",
+            taskbar: `<div class="taskbar taskbar-xp"><button class="start-btn-xp" onclick="openApp()">start</button><div style="margin-left:15px; border-left:1px solid #102594; height:25px;"></div><div style="background:#3c893c; padding:3px 15px; border-radius:3px; margin-left:10px; border:1px solid #44b544;">Aero Browser</div></div>`,
+            wall: "linear-gradient(to bottom, #3a6ea5 0%, #0055ea 100%)" // Fallback bliss color if image fails
+          },
+          { 
+            name: "Mac OS X Tiger", 
+            css: "https://cdn.jsdelivr.net/npm/7.css/dist/7.css", // Uses clean window layout
+            taskbar: `<div class="dock-osx"><div class="dock-icon" onclick="openApp()" title="Browser">🌐</div><div class="dock-icon" onclick="openApp()" title="Music">🎵</div><div class="dock-icon" onclick="openApp()" title="Files">📁</div></div>`
+          }
         ],
         palettes: [
-          { name: "Aero Glass (Blue)", border: "transparent", bg: "transparent", filter: "none" },
-          { name: "Royale (Green Tint)", border: "#228b22", bg: "rgba(34,139,34,0.1)", filter: "hue-rotate(-50deg)" },
-          { name: "Zune (Orange Tint)", border: "#ff8c00", bg: "rgba(255,140,0,0.1)", filter: "hue-rotate(150deg)" }
+          { name: "Aero Glass (Blue)", border: "transparent", bg: "transparent" },
+          { name: "Royale (Green Tint)", border: "#228b22", bg: "rgba(34,139,34,0.1)" }
         ],
         textColors: [
           { name: "Default Black", hex: "#000000" },
@@ -217,32 +224,19 @@
         ]
       },
       "2010s": { 
-        displays: ["Modern Flat Panel (No Filter)"], 
-        curvesAllowed: false,
-        bezelClass: "monitor-bezel bezel-modern",
+        displays: ["Modern Flat Panel (No Filter)"], curvesAllowed: false, bezelClass: "monitor-bezel bezel-modern",
         wallpaper: "linear-gradient(135deg, #1f1c2c 0%, #928dab 100%)",
-        desktopHTML: `<div class="desktop-icon icon-2000s" onclick="openApp()"><span>🌍</span>Edge Browser</div>`,
-        flavors: [
-          { name: "Modern Flat", css: "https://cdn.jsdelivr.net/npm/chota@0.9.2/dist/chota.min.css" }
-        ],
-        palettes: [
-          { name: "Light Mode", border: "#dddddd", bg: "#ffffff", filter: "none" },
-          { name: "Dark Mode", border: "#333333", bg: "#1a1a1a", filter: "grayscale(20%)" }
-        ],
-        textColors: [
-          { name: "Dark Slate", hex: "#333333" },
-          { name: "Off White", hex: "#f4f4f4" }
-        ]
+        taskbarHTML: `<div class="taskbar" style="background:#111; color:#fff; display:flex; justify-content:center;"><span>Type here to search</span></div>`,
+        flavors: [{ name: "Modern Flat", css: "https://cdn.jsdelivr.net/npm/chota@0.9.2/dist/chota.min.css" }],
+        palettes: [{ name: "Dark Mode", border: "#333333", bg: "#1a1a1a" }],
+        textColors: [{ name: "Off White", hex: "#f4f4f4" }]
       }
     };
 
     const cssClassMap = {
-      "CRT Vector Phosphor": "filter-70s",
-      "CRT Shadow Mask": "filter-80s",
-      "CRT Aperture Grille": "filter-90s-crt",
-      "Early LCD": "filter-lcd",
-      "CRT Flat-Screen": "filter-90s-crt", 
-      "Standard LCD": "filter-modern",
+      "CRT Vector Phosphor": "filter-70s", "CRT Shadow Mask": "filter-80s",
+      "CRT Aperture Grille": "filter-90s-crt", "Early LCD": "filter-lcd",
+      "CRT Flat-Screen": "filter-90s-crt", "Standard LCD": "filter-modern",
       "Modern Flat Panel (No Filter)": "filter-modern"
     };
 
@@ -257,7 +251,7 @@
     const mainScreen = document.getElementById("main-screen");
     const osThemeLink = document.getElementById("os-theme");
     const physicalMonitor = document.getElementById("physical-monitor");
-    const desktopArea = document.getElementById("desktop-area");
+    const desktopTaskbar = document.getElementById("desktop-taskbar");
     const appWindow = document.getElementById("app-window");
     const rootStyles = document.documentElement.style;
 
@@ -273,66 +267,44 @@
       mainScreen.style.backgroundSize = "cover";
       mainScreen.style.backgroundPosition = "center";
       
-      desktopArea.innerHTML = rules.desktopHTML;
-      
+      if (rules.taskbarHTML) { desktopTaskbar.innerHTML = rules.taskbarHTML; }
+
       displaySelect.innerHTML = "";
-      rules.displays.forEach(display => {
-        const option = document.createElement("option");
-        option.value = display;
-        option.textContent = display;
-        displaySelect.appendChild(option);
-      });
+      rules.displays.forEach(d => { const opt = document.createElement("option"); opt.value = d; opt.textContent = d; displaySelect.appendChild(opt); });
 
       flavorSelect.innerHTML = "";
-      rules.flavors.forEach((flavor, idx) => {
-        const option = document.createElement("option");
-        option.value = idx;
-        option.textContent = flavor.name;
-        flavorSelect.appendChild(option);
-      });
+      rules.flavors.forEach((f, idx) => { const opt = document.createElement("option"); opt.value = idx; opt.textContent = f.name; flavorSelect.appendChild(opt); });
 
       paletteSelect.innerHTML = "";
-      rules.palettes.forEach((pal, idx) => {
-        const option = document.createElement("option");
-        option.value = idx;
-        option.textContent = pal.name;
-        paletteSelect.appendChild(option);
-      });
+      rules.palettes.forEach((p, idx) => { const opt = document.createElement("option"); opt.value = idx; opt.textContent = p.name; paletteSelect.appendChild(opt); });
 
       textColorSelect.innerHTML = "";
-      rules.textColors.forEach(color => {
-        const option = document.createElement("option");
-        option.value = color.hex;
-        option.textContent = color.name;
-        textColorSelect.appendChild(option);
-      });
+      rules.textColors.forEach(c => { const opt = document.createElement("option"); opt.value = c.hex; opt.textContent = c.name; textColorSelect.appendChild(opt); });
 
-      if (rules.curvesAllowed) {
-        curveSlider.disabled = false;
-      } else {
-        curveSlider.disabled = true;
-        curveSlider.value = 0; 
-      }
+      curveSlider.disabled = !rules.curvesAllowed;
+      if (!rules.curvesAllowed) curveSlider.value = 0;
       
-      applyFlavor();
-      applyPalette();
-      applyTextColor();
-      applyFilter();
-      applyCurve();
+      applyFlavor(); applyPalette(); applyTextColor(); applyFilter(); applyCurve();
     }
 
     function applyFlavor() {
       const era = eraData[eraSelect.value];
       const flavor = era.flavors[flavorSelect.value];
       osThemeLink.href = flavor.css;
+      
+      // If the subflavor has a custom taskbar (like XP vs Aero vs Mac in 2000s), load it!
+      if (flavor.taskbar) {
+        desktopTaskbar.innerHTML = flavor.taskbar;
+      }
+      if (flavor.wall && eraSelect.value === "2000s") {
+        mainScreen.style.background = flavor.wall;
+      }
     }
 
     function applyPalette() {
-      const era = eraData[eraSelect.value];
-      const palette = era.palettes[paletteSelect.value];
+      const palette = eraData[eraSelect.value].palettes[paletteSelect.value];
       rootStyles.setProperty('--custom-border-color', palette.border);
       rootStyles.setProperty('--custom-bg-tint', palette.bg);
-      rootStyles.setProperty('--icon-filter', palette.filter);
     }
 
     function applyTextColor() {
@@ -342,19 +314,11 @@
     function applyFilter() {
       const display = displaySelect.value;
       screenFilter.className = cssClassMap[display]; 
-      
-      if (display.includes("LCD")) {
-        curveSlider.disabled = true;
-        curveSlider.value = 0;
-        applyCurve();
-      } else if (eraData[eraSelect.value].curvesAllowed) {
-        curveSlider.disabled = false;
-      }
+      if (display.includes("LCD")) { curveSlider.disabled = true; curveSlider.value = 0; applyCurve(); }
+      else if (eraData[eraSelect.value].curvesAllowed) { curveSlider.disabled = false; }
     }
 
-    function applyCurve() {
-      mainScreen.className = "screen curve-" + curveSlider.value;
-    }
+    function applyCurve() { mainScreen.className = "screen curve-" + curveSlider.value; }
 
     eraSelect.addEventListener("change", updateDashboard);
     flavorSelect.addEventListener("change", applyFlavor);
@@ -365,6 +329,5 @@
 
     updateDashboard();
   </script>
-
 </body>
 </html>

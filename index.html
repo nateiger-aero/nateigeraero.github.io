@@ -16,7 +16,7 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     
-    /* The Control Panel sitting above the monitor */
+    /* TOP CONTROL PANEL */
     #control-panel {
       background-color: #000;
       color: #39ff14;
@@ -35,7 +35,7 @@
       padding: 3px;
     }
     
-    /* The physical plastic monitor frame */
+    /* THE MONITOR FRAME */
     .monitor-bezel {
       background-color: #2a2a2a;
       padding: 20px 20px 40px 20px;
@@ -58,6 +58,7 @@
       box-shadow: 0 0 8px #39ff14;
     }
     
+    /* THE SCREEN CONTENT */
     .screen {
       background-image: url("PASTE_YOUR_IMAGE_LINK_HERE");
       background-size: cover;
@@ -67,7 +68,58 @@
       position: relative;
       overflow: hidden;
       border: 2px solid #000;
-      box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
+    }
+    
+    /* ========================================= */
+    /* NEW: THE ERA DISPLAY FILTERS              */
+    /* ========================================= */
+    
+    #screen-filter {
+      position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+      height: 100%;
+      pointer-events: none; /* Crucial: allows clicking the desktop beneath it */
+      z-index: 100; /* Puts the filter on top of everything inside the screen */
+    }
+    
+    /* 70s Vector: Heavy green phosphor wash and thick scanlines */
+    .filter-70s {
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+      background-size: 100% 4px;
+     background-color: rgba(0, 40, 0, 0.7);
+      box-shadow: inset 0 0 80px rgba(0, 255, 0, 0.4);
+    }
+    
+    /* 80s Shadow Mask: RGB dot matrix pattern */
+    .filter-80s {
+     background-image: radial-gradient(rgba(255,0,0,0.15) 1px, transparent 2px),
+                       radial-gradient(rgba(0,255,0,0.15) 1px, transparent 2px),
+                        radial-gradient(rgba(0,0,255,0.15) 1px, transparent 2px);
+      background-size: 4px 4px;
+      background-position: 0 0, 1px 1px, 2px 2px;
+      box-shadow: inset 0 0 60px rgba(0,0,0,0.8);
+    }
+    
+    /* 90s Aperture Grille: Fine vertical lines and heavy corner vignette */
+    .filter-90s-crt {
+      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 50%, rgba(0,0,0,0.1) 100%);
+      background-size: 3px 100%;
+      box-shadow: inset 0 0 100px rgba(0,0,0,0.9);
+    }
+    
+    /* Early LCD: Visible pixel grid, slightly washed out blacks */
+    .filter-lcd {
+     background-image: linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+      background-size: 2px 2px;
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+    
+    /* Modern: Clear screen, no interference */
+    .filter-modern {
+      background: none;
     }
   </style>
 </head>
@@ -85,9 +137,7 @@
     </select>
 
     <label>DISPLAY:</label>
-    <select id="display-select">
-      <!-- JavaScript will auto-fill this based on the era -->
-    </select>
+    <select id="display-select"></select>
 
     <label>CURVE INTENSITY:</label>
     <input type="range" id="curve-slider" min="0" max="2" value="0">
@@ -96,15 +146,23 @@
   <!-- THE MONITOR -->
   <div class="monitor-bezel">
     <div class="power-light"></div>
+    
     <div class="screen">
-      <!-- Screen content goes here later -->
-      <h2 style="color: white; text-align: center; margin-top: 20%;">Display Test</h2>
+      
+      <!-- NEW: The transparent overlay that holds the visual effects -->
+      <div id="screen-filter" class="filter-modern"></div>
+      
+      <!-- Temporary Desktop Text so you can see the filter effects -->
+      <h2 style="color: white; text-align: center; margin-top: 15%; position: relative; z-index: 10;">
+        Display Filter Test<br>
+        <span style="font-size: 0.5em;">Change the dropdowns above to see the hardware change!</span>
+      </h2>
+
     </div>
   </div>
 
   <!-- THE JAVASCRIPT LOGIC -->
   <script>
-    // 1. Define the historical rules
     const eraData = {
       "70s": { displays: ["CRT Vector Phosphor"], curvesAllowed: true },
       "80s": { displays: ["CRT Shadow Mask"], curvesAllowed: true },
@@ -113,20 +171,28 @@
       "2010s": { displays: ["Modern Flat Panel (No Filter)"], curvesAllowed: false }
     };
 
-    // 2. Grab the HTML elements so we can control them
+    // Dictionary mapping dropdown text to our new CSS classes
+    const cssClassMap = {
+      "CRT Vector Phosphor": "filter-70s",
+      "CRT Shadow Mask": "filter-80s",
+      "CRT Aperture Grille": "filter-90s-crt",
+      "Early LCD": "filter-lcd",
+      "CRT Flat-Screen": "filter-90s-crt", // Reuse aperture logic for late CRTs
+      "Standard LCD": "filter-modern",
+      "Modern Flat Panel (No Filter)": "filter-modern"
+    };
+
     const eraSelect = document.getElementById("era-select");
     const displaySelect = document.getElementById("display-select");
     const curveSlider = document.getElementById("curve-slider");
+    const screenFilter = document.getElementById("screen-filter");
 
-    // 3. Write the function to update the display dropdown
     function updateDashboard() {
       const currentEra = eraSelect.value;
       const rules = eraData[currentEra];
       
-      // Clear out the old display options
       displaySelect.innerHTML = "";
       
-      // Add the new historically accurate display options
       rules.displays.forEach(display => {
         const newOption = document.createElement("option");
         newOption.value = display;
@@ -134,20 +200,27 @@
         displaySelect.appendChild(newOption);
       });
 
-      // Enable or disable the curve slider depending on the era/display
-      // (We'll make this even smarter later so LCDs disable the curve!)
       if (rules.curvesAllowed) {
         curveSlider.disabled = false;
       } else {
         curveSlider.disabled = true;
-        curveSlider.value = 0; // Force to flat if modern
+       curveSlider.value = 0;
       }
+      
+      // Apply the filter immediately when Era changes
+      applyFilter();
     }
 
-    // 4. Tell the era dropdown to run the update function whenever it is changed
-    eraSelect.addEventListener("change", updateDashboard);
+    // New function to change the CSS class when the Display dropdown changes
+    function applyFilter() {
+      const selectedDisplay = displaySelect.value;
+      const cssClass = cssClassMap[selectedDisplay];
+      screenFilter.className = cssClass; // Swaps the CSS class on the overlay
+    }
 
-    // 5. Run the function once right away to set up the default 2000s view
+    eraSelect.addEventListener("change", updateDashboard);
+    displaySelect.addEventListener("change", applyFilter);
+
     updateDashboard();
   </script>
 

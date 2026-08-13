@@ -8,72 +8,24 @@
   <link id="os-theme" rel="stylesheet" href="[https://cdn.jsdelivr.net/npm/7.css/dist/7.css](https://cdn.jsdelivr.net/npm/7.css/dist/7.css)">
   
   <style>
-    body {
-      background-color: #0a0a0a;
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: row; /* Puts monitor and sidebar side-by-side */
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      overflow: hidden;
-    }
+    body { background-color: #0a0a0a; margin: 0; height: 100vh; display: flex; flex-direction: row; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow: hidden; }
     
     /* THE LEFT SIDE (MONITOR AREA) */
-    #monitor-station {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
+    #monitor-station { flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px; }
     
-    .monitor-bezel {
-      width: 100%;
-      max-width: 1000px;
-      height: 80vh;
-      position: relative;
-      transition: all 0.5s ease;
-    }
+    .monitor-bezel { width: 100%; max-width: 1000px; height: 80vh; position: relative; transition: all 0.5s ease; }
     
     .bezel-70s { background-color: #1a1a1a; padding: 40px; border-radius: 40px; box-shadow: 0 15px 40px rgba(0,0,0,0.9); }
     .bezel-90s { background-color: #e0d8c8; padding: 30px 30px 40px 30px; border-radius: 5px; box-shadow: 0 15px 40px rgba(0,0,0,0.9), inset 0 5px 15px rgba(255,255,255,0.8); }
     .bezel-2000s { background-color: #2a2a2a; padding: 20px 20px 40px 20px; border-radius: 15px; box-shadow: 0 15px 40px rgba(0,0,0,0.9), inset 0 2px 5px rgba(255,255,255,0.1); }
     .bezel-modern { background-color: #050505; padding: 10px 10px 20px 10px; border-radius: 5px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); }
     
-    .power-light {
-      position: absolute;
-      bottom: 15px;
-      right: 30px;
-      width: 8px;
-      height: 8px;
-      background-color: #39ff14;
-      border-radius: 50%;
-      box-shadow: 0 0 8px #39ff14;
-    }
+    .power-light { position: absolute; bottom: 15px; right: 30px; width: 8px; height: 8px; background-color: #39ff14; border-radius: 50%; box-shadow: 0 0 8px #39ff14; }
     
-    .screen {
-      background-size: cover;
-      background-position: center;
-      width: 100%;
-      height: 100%;
-      position: relative;
-      overflow: hidden;
-      border: 2px solid #000;
-      transition: all 0.3s ease;
-    }
+    .screen { background-size: cover; background-position: center; width: 100%; height: 100%; position: relative; overflow: hidden; border: 2px solid #000; transition: all 0.3s ease; }
     
     /* THE RIGHT SIDE (CONTROL DECK) */
-    #control-deck {
-      width: 300px;
-      background-color: #111;
-      color: #39ff14;
-      border-left: 2px solid #222;
-      padding: 20px;
-      font-family: monospace;
-      overflow-y: auto;
-      box-shadow: -5px 0 15px rgba(0,0,0,0.8);
-    }
-    
+    #control-deck { width: 300px; background-color: #111; color: #39ff14; border-left: 2px solid #222; padding: 20px; font-family: monospace; overflow-y: auto; box-shadow: -5px 0 15px rgba(0,0,0,0.8); }
     #control-deck h2 { text-align: center; border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 0; }
     .control-group { margin-bottom: 25px; }
     .control-group label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: #fff; }
@@ -81,30 +33,10 @@
     .control-group input[type="color"] { width: 100%; height: 40px; background: #222; border: 1px solid #444; cursor: pointer; }
     
     /* DESKTOP ICONS & APP WINDOW */
-    #desktop-area {
-      position: relative;
-      z-index: 10; /* Keeps icons above the background but below filters */
-      height: 100%;
-      padding: 10px;
-    }
+    #desktop-area { position: relative; z-index: 10; height: 100%; padding: 10px; }
+    .desktop-icon { width: 80px; text-align: center; color: white; text-shadow: 1px 1px 3px black; cursor: pointer; margin-bottom: 20px; }
     
-    .desktop-icon {
-      width: 80px;
-      text-align: center;
-      color: white;
-      text-shadow: 1px 1px 3px black;
-      cursor: pointer;
-      margin-bottom: 20px;
-    }
-    
-    #app-window {
-      position: absolute;
-      top: 10%;
-      left: 10%;
-      width: 80%;
-      min-height: 400px;
-      display: none;
-    }
+    #app-window { position: absolute; top: 10%; left: 10%; width: 80%; min-height: 400px; display: none; }
     
     /* FILTERS AND CURVES */
     #screen-filter { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 100; }
@@ -124,16 +56,13 @@
 </head>
 <body>
 
-  <!-- THE MONITOR STATION (LEFT) -->
   <div id="monitor-station">
     <div id="physical-monitor" class="monitor-bezel bezel-2000s">
       <div class="power-light"></div>
-      
       <div id="main-screen" class="screen curve-0">
         <div class="glass-glare"></div>
         <div id="screen-filter" class="filter-modern"></div>
         
-        <!-- THE DESKTOP AREA -->
         <div id="desktop-area">
           <div class="desktop-icon" id="browser-icon">
             <span style="font-size: 40px;">🌐</span>
@@ -156,12 +85,10 @@
             </div>
           </div>
         </div>
-        <!-- END DESKTOP AREA -->
       </div>
     </div>
   </div>
 
-  <!-- THE CONTROL DECK (RIGHT) -->
   <div id="control-deck">
     <h2>SYSTEM CONFIG</h2>
     
@@ -178,9 +105,7 @@
 
     <div class="control-group">
       <label>Design (Subflavors)</label>
-      <select id="flavor-select">
-        <!-- JS will populate this -->
-      </select>
+      <select id="flavor-select"></select>
     </div>
 
     <div class="control-group">
@@ -200,46 +125,57 @@
   </div>
 
   <script>
+    // The newly expanded Era Data dictionary
     const eraData = {
      "70s": {
        displays: ["CRT Vector Phosphor"],
-        flavors: ["Standard Green", "Amber Phosphor", "White Terminal"],
         curvesAllowed: true,
-        cssLink: "[https://cdn.jsdelivr.net/npm/terminal.css@0.7.2/dist/terminal.min.css](https://cdn.jsdelivr.net/npm/terminal.css@0.7.2/dist/terminal.min.css)",
         bezelClass: "monitor-bezel bezel-70s",
-        wallpaper: "#000000" // Pure black for terminal
+        wallpaper: "#000000",
+        flavors: [
+          { name: "Standard Green", css: "[https://cdn.jsdelivr.net/npm/terminal.css@0.7.2/dist/terminal.min.css](https://cdn.jsdelivr.net/npm/terminal.css@0.7.2/dist/terminal.min.css)", color: "#39ff14" },
+          { name: "Amber Phosphor", css: "[https://cdn.jsdelivr.net/npm/terminal.css@0.7.2/dist/terminal.min.css](https://cdn.jsdelivr.net/npm/terminal.css@0.7.2/dist/terminal.min.css)", color: "#ffbf00" },
+          { name: "Ghost White", css: "[https://cdn.jsdelivr.net/npm/terminal.css@0.7.2/dist/terminal.min.css](https://cdn.jsdelivr.net/npm/terminal.css@0.7.2/dist/terminal.min.css)", color: "#ffffff" }
+        ]
       },
      "80s": {
        displays: ["CRT Shadow Mask", "CRT Aperture Grille"],
-        flavors: ["Windows 1.0", "Mac System 6"],
         curvesAllowed: true,
-        cssLink: "[https://cdn.jsdelivr.net/npm/98.css@0.1.17/build/98.min.css](https://cdn.jsdelivr.net/npm/98.css@0.1.17/build/98.min.css)", // Close enough to 80s for now
         bezelClass: "monitor-bezel bezel-90s",
-        wallpaper: "#008080" // Classic Solid Teal
+        wallpaper: "#008080",
+        flavors: [
+          { name: "Windows 1.0 / 2.0", css: "[https://cdn.jsdelivr.net/npm/98.css@0.1.17/build/98.min.css](https://cdn.jsdelivr.net/npm/98.css@0.1.17/build/98.min.css)" },
+          { name: "Mac System 6", css: "[https://cdn.jsdelivr.net/npm/@sakun/system.css@1.0.4/dist/system.css](https://cdn.jsdelivr.net/npm/@sakun/system.css@1.0.4/dist/system.css)" }
+        ]
       },
      "90s": {
        displays: ["CRT Aperture Grille", "Early LCD"],
-        flavors: ["Windows 95", "Windows 98 SE", "Mac OS 9"],
         curvesAllowed: true,
-        cssLink: "[https://cdn.jsdelivr.net/npm/98.css@0.1.17/build/98.min.css](https://cdn.jsdelivr.net/npm/98.css@0.1.17/build/98.min.css)",
         bezelClass: "monitor-bezel bezel-90s",
-        wallpaper: "#008080" // Classic Solid Teal
+        wallpaper: "#008080",
+        flavors: [
+          { name: "Windows 95/98", css: "[https://cdn.jsdelivr.net/npm/98.css@0.1.17/build/98.min.css](https://cdn.jsdelivr.net/npm/98.css@0.1.17/build/98.min.css)" },
+          { name: "Mac OS 9", css: "[https://cdn.jsdelivr.net/npm/@sakun/system.css@1.0.4/dist/system.css](https://cdn.jsdelivr.net/npm/@sakun/system.css@1.0.4/dist/system.css)" }
+        ]
       },
      "2000s": {
        displays: ["CRT Flat-Screen", "Standard LCD"],
-        flavors: ["Windows Vista / 7", "Mac OS X Tiger", "Ubuntu Linux"],
         curvesAllowed: true,
-        cssLink: "[https://cdn.jsdelivr.net/npm/7.css/dist/7.css](https://cdn.jsdelivr.net/npm/7.css/dist/7.css)",
         bezelClass: "monitor-bezel bezel-2000s",
-        wallpaper: "url('PASTE_YOUR_IMAGE_LINK_HERE')" // Your Frutiger Aero Image
+       wallpaper: "url('PASTE_YOUR_IMAGE_LINK_HERE')",
+        flavors: [
+          { name: "Windows Vista / 7", css: "[https://cdn.jsdelivr.net/npm/7.css/dist/7.css](https://cdn.jsdelivr.net/npm/7.css/dist/7.css)" },
+          { name: "Windows XP", css: "[https://cdn.jsdelivr.net/npm/xp.css@0.2.2/dist/XP.css](https://cdn.jsdelivr.net/npm/xp.css@0.2.2/dist/XP.css)" }
+        ]
       },
      "2010s": {
        displays: ["Modern Flat Panel (No Filter)"],
-        flavors: ["Windows 11", "macOS Sequoia", "Dark Mode"],
         curvesAllowed: false,
-       cssLink: "[https://cdn.jsdelivr.net/npm/chota@0.9.2/dist/chota.min.css](https://cdn.jsdelivr.net/npm/chota@0.9.2/dist/chota.min.css)",
         bezelClass: "monitor-bezel bezel-modern",
-        wallpaper: "linear-gradient(135deg, #1f1c2c 0%, #928dab 100%)" // Modern dark gradient
+        wallpaper: "linear-gradient(135deg, #1f1c2c 0%, #928dab 100%)",
+        flavors: [
+          { name: "Modern Flat", css: "[https://cdn.jsdelivr.net/npm/chota@0.9.2/dist/chota.min.css](https://cdn.jsdelivr.net/npm/chota@0.9.2/dist/chota.min.css)" }
+        ]
       }
     };
 
@@ -272,15 +208,11 @@
       const currentEra = eraSelect.value;
       const rules = eraData[currentEra];
       
-      osThemeLink.href = rules.cssLink;
       physicalMonitor.className = rules.bezelClass;
-      
-      // 1. UPDATE THE DESKTOP WALLPAPER
       mainScreen.style.background = rules.wallpaper;
       mainScreen.style.backgroundSize = "cover";
       mainScreen.style.backgroundPosition = "center";
       
-      // 2. UPDATE DISPLAYS
       displaySelect.innerHTML = "";
       rules.displays.forEach(display => {
         const newOption = document.createElement("option");
@@ -289,16 +221,14 @@
         displaySelect.appendChild(newOption);
       });
 
-      // 3. UPDATE FLAVORS
       flavorSelect.innerHTML = "";
-      rules.flavors.forEach(flavor => {
+      rules.flavors.forEach((flavor, index) => {
         const newOption = document.createElement("option");
-        newOption.value = flavor;
-        newOption.textContent = flavor;
+        newOption.value = index; // Store the index number so we can look it up later
+        newOption.textContent = flavor.name;
         flavorSelect.appendChild(newOption);
       });
 
-      // 4. HANDLE CURVES
       if (rules.curvesAllowed) {
         curveSlider.disabled = false;
       } else {
@@ -306,21 +236,35 @@
        curveSlider.value = 0;
       }
       
-      // Reset custom text coloring when swapping eras
-      if (currentEra !== "70s") {
-        windowTitle.style.color = "";
-        windowContentTitle.style.color = "";
-        windowContentText.style.color = "";
-      }
-      
+      // Load the CSS of the first flavor in the list by default
+      applyFlavor();
       applyFilter();
       applyCurve();
     }
 
+    // NEW FUNCTION: Switches CSS based on the flavor dropdown
+    function applyFlavor() {
+      const currentEra = eraSelect.value;
+      const selectedFlavorIndex = flavorSelect.value;
+      const activeFlavor = eraData[currentEra].flavors[selectedFlavorIndex];
+      
+      osThemeLink.href = activeFlavor.css;
+      
+      // If we are in the 70s, automatically adjust the color picker based on the flavor
+      if (currentEra === "70s" && activeFlavor.color) {
+        textColorPicker.value = activeFlavor.color;
+        applyTextColor(); // Force the color update
+      } else if (currentEra !== "70s") {
+        // Reset colors for non-terminal eras
+        windowTitle.style.color = "";
+        windowContentTitle.style.color = "";
+        windowContentText.style.color = "";
+      }
+    }
+
     function applyFilter() {
       const selectedDisplay = displaySelect.value;
-      const cssClass = cssClassMap[selectedDisplay];
-     screenFilter.className = cssClass;
+     screenFilter.className = cssClassMap[selectedDisplay];
       
       if (selectedDisplay.includes("LCD")) {
         curveSlider.disabled = true;
@@ -332,12 +276,10 @@
     }
 
     function applyCurve() {
-      const intensity = curveSlider.value;
-      mainScreen.className = "screen curve-" + intensity;
+      mainScreen.className = "screen curve-" + curveSlider.value;
     }
     
     function applyTextColor() {
-      // Only strictly apply custom colors in the 70s terminal view to avoid breaking later UIs
       if(eraSelect.value === "70s") {
         const color = textColorPicker.value;
         windowTitle.style.color = color;
@@ -347,13 +289,13 @@
     }
 
     eraSelect.addEventListener("change", updateDashboard);
+    flavorSelect.addEventListener("change", applyFlavor); // Added listener for flavor changes
     displaySelect.addEventListener("change", applyFilter);
     curveSlider.addEventListener("input", applyCurve);
     textColorPicker.addEventListener("input", applyTextColor);
 
     updateDashboard();
 
-    // WINDOW LOGIC
     const browserIcon = document.getElementById("browser-icon");
     const appWindow = document.getElementById("app-window");
     const closeBtn = document.getElementById("close-btn");

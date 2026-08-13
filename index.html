@@ -7,92 +7,149 @@
   <link rel="stylesheet" href="[https://cdn.jsdelivr.net/npm/7.css/dist/7.css](https://cdn.jsdelivr.net/npm/7.css/dist/7.css)">
   <style>
     body {
-      background-image: url("https://i.redd.it/is-there-a-name-for-this-kind-of-futuristic-aesthetic-v0-xqwyi0yqdz2g1.jpg?width=1200&format=pjpg&auto=webp&s=46b4ba73dc73fd4a94755c478817bdfe738a3bb5");
-      background-size: cover;
-      background-attachment: fixed;
-      background-position: center;
+      background-color: #121212;
       margin: 0;
-      padding: 20px;
       height: 100vh;
-      overflow: hidden; /* Stops the desktop from scrolling */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    /* Desktop Icon Styling */
-    .desktop-icon {
-      width: 80px;
+    
+    /* The Control Panel sitting above the monitor */
+    #control-panel {
+      background-color: #000;
+      color: #39ff14;
+      width: 100%;
+      padding: 15px 0;
       text-align: center;
-      color: white;
-      text-shadow: 1px 1px 3px black;
-      cursor: pointer;
+      font-family: monospace;
+      border-bottom: 2px solid #333;
       margin-bottom: 20px;
     }
-    .desktop-icon:hover {
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 5px;
+    #control-panel select, #control-panel input {
+      margin: 0 15px 0 5px;
+      background: #222;
+      color: #fff;
+      border: 1px solid #555;
+      padding: 3px;
     }
-    .desktop-icon span {
-      font-size: 40px; /* Using an emoji as a placeholder icon */
-      display: block;
+    
+    /* The physical plastic monitor frame */
+    .monitor-bezel {
+      background-color: #2a2a2a;
+      padding: 20px 20px 40px 20px;
+      border-radius: 15px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.9), inset 0 2px 5px rgba(255,255,255,0.1);
+      width: 90vw;
+      max-width: 1200px;
+      height: 75vh;
+      position: relative;
     }
-    /* Browser Window Styling */
-    .glass-window {
-      background: rgba(255, 255, 255, 0.6) !important;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    
+    .power-light {
       position: absolute;
-      top: 10%;
-      left: 15%;
-      width: 70%;
-      min-height: 500px;
+      bottom: 15px;
+      right: 30px;
+      width: 8px;
+      height: 8px;
+      background-color: #39ff14;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #39ff14;
+    }
+    
+    .screen {
+      background-image: url("PASTE_YOUR_IMAGE_LINK_HERE");
+      background-size: cover;
+      background-position: center;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid #000;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
     }
   </style>
 </head>
 <body>
 
-  <!-- Desktop Icons Area -->
-  <div class="desktop-icon">
-    <span>🌐</span>
-    <div style="font-size: 12px; margin-top: 5px;">Web Browser</div>
-  </div>
-  <div class="desktop-icon">
-    <span>📁</span>
-    <div style="font-size: 12px; margin-top: 5px;">Project Citations</div>
+  <!-- TOP CONTROL PANEL -->
+  <div id="control-panel">
+    <label>ERA:</label>
+    <select id="era-select">
+      <option value="70s">70s CCTV</option>
+      <option value="80s">80s Analog GUI</option>
+      <option value="90s">90s Beige Box</option>
+      <option value="2000s" selected>2000s Y2K / Aero</option>
+      <option value="2010s">2010s Modern</option>
+    </select>
+
+    <label>DISPLAY:</label>
+    <select id="display-select">
+      <!-- JavaScript will auto-fill this based on the era -->
+    </select>
+
+    <label>CURVE INTENSITY:</label>
+    <input type="range" id="curve-slider" min="0" max="2" value="0">
   </div>
 
-  <!-- The Browser App Window -->
-  <div class="window glass-window">
-    <div class="title-bar">
-      <div class="title-bar-text">Aero Browser - The Future We Were Promised</div>
-      <div class="title-bar-controls">
-        <button aria-label="Minimize"></button>
-        <button aria-label="Maximize"></button>
-        <button aria-label="Close"></button>
-      </div>
+  <!-- THE MONITOR -->
+  <div class="monitor-bezel">
+    <div class="power-light"></div>
+    <div class="screen">
+      <!-- Screen content goes here later -->
+      <h2 style="color: white; text-align: center; margin-top: 20%;">Display Test</h2>
     </div>
-    <div class="window-body">
+  </div>
+
+  <!-- THE JAVASCRIPT LOGIC -->
+  <script>
+    // 1. Define the historical rules
+    const eraData = {
+      "70s": { displays: ["CRT Vector Phosphor"], curvesAllowed: true },
+      "80s": { displays: ["CRT Shadow Mask"], curvesAllowed: true },
+      "90s": { displays: ["CRT Aperture Grille", "Early LCD"], curvesAllowed: true },
+      "2000s": { displays: ["CRT Flat-Screen", "Standard LCD"], curvesAllowed: true },
+      "2010s": { displays: ["Modern Flat Panel (No Filter)"], curvesAllowed: false }
+    };
+
+    // 2. Grab the HTML elements so we can control them
+    const eraSelect = document.getElementById("era-select");
+    const displaySelect = document.getElementById("display-select");
+    const curveSlider = document.getElementById("curve-slider");
+
+    // 3. Write the function to update the display dropdown
+    function updateDashboard() {
+      const currentEra = eraSelect.value;
+      const rules = eraData[currentEra];
       
-      <!-- The Tab System -->
-      <section class="tabs">
-        <menu role="tablist" aria-label="Browser Tabs">
-          <button role="tab" aria-selected="true" aria-controls="tab-tech">Technology</button>
-          <button role="tab" aria-selected="false" aria-controls="tab-culture">Culture</button>
-          <button role="tab" aria-selected="false" aria-controls="tab-timeline">Timeline</button>
-        </menu>
-        
-        <!-- Technology Tab Content -->
-        <article role="tabpanel" id="tab-tech">
-          <h2>Technology & Hardware</h2>
-          <p>Welcome to the digital companion. Select a directory to begin.</p>
-          <ul class="tree-view">
-            <li><a href="technology/smartphones/index.html">>[DIR] Mobile Evolution</a></li>
-            <li><a href="technology/social-media/index.html">>[DIR] Social Media Platforms</a></li>
-          </ul>
-        </article>
-      </section>
+      // Clear out the old display options
+      displaySelect.innerHTML = "";
+      
+      // Add the new historically accurate display options
+      rules.displays.forEach(display => {
+        const newOption = document.createElement("option");
+        newOption.value = display;
+        newOption.textContent = display;
+        displaySelect.appendChild(newOption);
+      });
 
-    </div>
-  </div>
+      // Enable or disable the curve slider depending on the era/display
+      // (We'll make this even smarter later so LCDs disable the curve!)
+      if (rules.curvesAllowed) {
+        curveSlider.disabled = false;
+      } else {
+        curveSlider.disabled = true;
+        curveSlider.value = 0; // Force to flat if modern
+      }
+    }
+
+    // 4. Tell the era dropdown to run the update function whenever it is changed
+    eraSelect.addEventListener("change", updateDashboard);
+
+    // 5. Run the function once right away to set up the default 2000s view
+    updateDashboard();
+  </script>
 
 </body>
 </html>

@@ -5,16 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Thats Not My Future OS</title>
   
-  <link id="os-theme" rel="stylesheet" href="[https://cdn.jsdelivr.net/npm/7.css/dist/7.css](https://cdn.jsdelivr.net/npm/7.css/dist/7.css)">
+  <link id="os-theme" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/7.css/dist/7.css">
   
   <style>
+    :root {
+      --custom-text-color: inherit;
+      --custom-border-color: transparent;
+      --custom-bg-tint: transparent;
+      --icon-filter: none;
+    }
+    
     body { background-color: #0a0a0a; margin: 0; height: 100vh; display: flex; flex-direction: row; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow: hidden; }
     
-    /* THE LEFT SIDE (MONITOR AREA) */
     #monitor-station { flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px; }
     
     .monitor-bezel { width: 100%; max-width: 1000px; height: 80vh; position: relative; transition: all 0.5s ease; }
-    
     .bezel-70s { background-color: #1a1a1a; padding: 40px; border-radius: 40px; box-shadow: 0 15px 40px rgba(0,0,0,0.9); }
     .bezel-90s { background-color: #e0d8c8; padding: 30px 30px 40px 30px; border-radius: 5px; box-shadow: 0 15px 40px rgba(0,0,0,0.9), inset 0 5px 15px rgba(255,255,255,0.8); }
     .bezel-2000s { background-color: #2a2a2a; padding: 20px 20px 40px 20px; border-radius: 15px; box-shadow: 0 15px 40px rgba(0,0,0,0.9), inset 0 2px 5px rgba(255,255,255,0.1); }
@@ -24,21 +29,27 @@
     
     .screen { background-size: cover; background-position: center; width: 100%; height: 100%; position: relative; overflow: hidden; border: 2px solid #000; transition: all 0.3s ease; }
     
-    /* THE RIGHT SIDE (CONTROL DECK) */
-    #control-deck { width: 300px; background-color: #111; color: #39ff14; border-left: 2px solid #222; padding: 20px; font-family: monospace; overflow-y: auto; box-shadow: -5px 0 15px rgba(0,0,0,0.8); }
+    #control-deck { width: 320px; background-color: #111; color: #39ff14; border-left: 2px solid #222; padding: 20px; font-family: monospace; overflow-y: auto; box-shadow: -5px 0 15px rgba(0,0,0,0.8); }
     #control-deck h2 { text-align: center; border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 0; }
-    .control-group { margin-bottom: 25px; }
-    .control-group label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: #fff; }
+    .control-group { margin-bottom: 20px; }
+    .control-group label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #fff; }
     .control-group select, .control-group input[type="range"] { width: 100%; background: #222; color: #39ff14; border: 1px solid #444; padding: 8px; box-sizing: border-box; }
-    .control-group input[type="color"] { width: 100%; height: 40px; background: #222; border: 1px solid #444; cursor: pointer; }
     
-    /* DESKTOP ICONS & APP WINDOW */
-    #desktop-area { position: relative; z-index: 10; height: 100%; padding: 10px; }
-    .desktop-icon { width: 80px; text-align: center; color: white; text-shadow: 1px 1px 3px black; cursor: pointer; margin-bottom: 20px; }
+    #desktop-area { position: relative; z-index: 10; height: 100%; padding: 20px; display: flex; flex-direction: column; gap: 15px; align-items: flex-start; }
     
-    #app-window { position: absolute; top: 10%; left: 10%; width: 80%; min-height: 400px; display: none; }
+    /* DYNAMIC ICON STYLES */
+    .desktop-icon { text-align: center; color: var(--custom-text-color, white); text-shadow: 1px 1px 3px black; cursor: pointer; filter: var(--icon-filter); transition: all 0.2s; }
+    .desktop-icon:hover { background: rgba(255,255,255,0.2); border-radius: 5px; }
+    .icon-70s { font-family: monospace; font-size: 18px; text-shadow: none; background: var(--custom-bg-tint); border: 1px solid var(--custom-border-color); padding: 5px; }
+    .icon-90s { font-size: 12px; width: 70px; }
+    .icon-90s span { font-size: 35px; display: block; margin-bottom: 5px; }
+    .icon-2000s { font-size: 13px; width: 80px; }
+    .icon-2000s span { font-size: 45px; display: block; margin-bottom: 5px; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
     
-    /* FILTERS AND CURVES */
+    /* APP WINDOW DYNAMIC PALETTE */
+    #app-window { position: absolute; top: 10%; left: 10%; width: 80%; min-height: 400px; display: none; border: 2px solid var(--custom-border-color) !important; background-color: var(--custom-bg-tint) !important; }
+    .window-body, .window-body h2, .window-body p { color: var(--custom-text-color) !important; }
+    
     #screen-filter { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 100; }
     .filter-70s { background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%); background-size: 100% 4px; background-color: rgba(0, 40, 0, 0.7); box-shadow: inset 0 0 80px rgba(0, 255, 0, 0.4); }
     .filter-80s { background-image: radial-gradient(rgba(255,0,0,0.15) 1px, transparent 2px), radial-gradient(rgba(0,255,0,0.15) 1px, transparent 2px), radial-gradient(rgba(0,0,255,0.15) 1px, transparent 2px); background-size: 4px 4px; background-position: 0 0, 1px 1px, 2px 2px; box-shadow: inset 0 0 60px rgba(0,0,0,0.8); }
@@ -63,26 +74,22 @@
         <div class="glass-glare"></div>
         <div id="screen-filter" class="filter-modern"></div>
         
-        <div id="desktop-area">
-          <div class="desktop-icon" id="browser-icon">
-            <span style="font-size: 40px;">🌐</span>
-            <div style="font-size: 12px; margin-top: 5px;">Digital Companion</div>
-          </div>
+        <!-- THE DYNAMIC DESKTOP AREA -->
+        <div id="desktop-area"></div>
 
-          <div id="app-window" class="window glass-window">
-            <div class="title-bar">
-              <div class="title-bar-text" id="window-title-text">Aero Browser</div>
-              <div class="title-bar-controls">
-                <button aria-label="Minimize"></button>
-                <button aria-label="Maximize"></button>
-                <button aria-label="Close" id="close-btn"></button>
-              </div>
+        <!-- THE APP WINDOW -->
+        <div id="app-window" class="window glass-window">
+          <div class="title-bar">
+            <div class="title-bar-text">Application Directory</div>
+            <div class="title-bar-controls">
+              <button aria-label="Minimize"></button>
+              <button aria-label="Maximize"></button>
+              <button aria-label="Close" onclick="closeApp()"></button>
             </div>
-            <div class="window-body">
-              <h2 id="window-content-title" style="color: inherit;">Welcome to the Directory</h2>
-              <p id="window-content-text" style="color: inherit;">Explore the evolution of digital culture.</p>
-              <button>Open Timeline</button>
-            </div>
+          </div>
+          <div class="window-body">
+            <h2>Welcome to the Directory</h2>
+            <p>Explore the evolution of digital culture.</p>
           </div>
         </div>
       </div>
@@ -107,10 +114,15 @@
       <label>Design (Subflavors)</label>
       <select id="flavor-select"></select>
     </div>
+    
+    <div class="control-group">
+      <label>UI Palette (Borders & Icons)</label>
+      <select id="palette-select"></select>
+    </div>
 
     <div class="control-group">
-      <label>Text Style (Color)</label>
-      <input type="color" id="text-color-picker" value="#39ff14">
+      <label>Text Style (Preset Colors)</label>
+      <select id="text-color-select"></select>
     </div>
 
     <div class="control-group">
@@ -125,56 +137,101 @@
   </div>
 
   <script>
-    // The newly expanded Era Data dictionary
+    // The Central Data Dictionary holding layouts, CSS links, and presets
     const eraData = {
-     "70s": {
-       displays: ["CRT Vector Phosphor"],
+      "70s": { 
+        displays: ["CRT Vector Phosphor"], 
         curvesAllowed: true,
         bezelClass: "monitor-bezel bezel-70s",
         wallpaper: "#000000",
+        desktopHTML: `<div class="desktop-icon icon-70s" onclick="openApp()">> RUN COMPANION.EXE _</div>`,
         flavors: [
-          { name: "Standard Green", css: "[https://cdn.jsdelivr.net/npm/terminal.css@0.7.2/dist/terminal.min.css](https://cdn.jsdelivr.net/npm/terminal.css@0.7.2/dist/terminal.min.css)", color: "#39ff14" },
-          { name: "Amber Phosphor", css: "[https://cdn.jsdelivr.net/npm/terminal.css@0.7.2/dist/terminal.min.css](https://cdn.jsdelivr.net/npm/terminal.css@0.7.2/dist/terminal.min.css)", color: "#ffbf00" },
-          { name: "Ghost White", css: "[https://cdn.jsdelivr.net/npm/terminal.css@0.7.2/dist/terminal.min.css](https://cdn.jsdelivr.net/npm/terminal.css@0.7.2/dist/terminal.min.css)", color: "#ffffff" }
+          { name: "Standard Terminal", css: "https://cdn.jsdelivr.net/npm/terminal.css@0.7.2/dist/terminal.min.css" }
+        ],
+        palettes: [
+          { name: "Hacker Contrast", border: "#39ff14", bg: "rgba(0,20,0,0.8)", filter: "none" },
+          { name: "Ghost Box", border: "#ffffff", bg: "rgba(20,20,20,0.8)", filter: "grayscale(100%)" }
+        ],
+        textColors: [
+          { name: "Phosphor Green", hex: "#39ff14" },
+          { name: "Amber", hex: "#ffbf00" },
+          { name: "White", hex: "#ffffff" }
         ]
       },
-     "80s": {
-       displays: ["CRT Shadow Mask", "CRT Aperture Grille"],
+      "80s": { 
+        displays: ["CRT Shadow Mask", "CRT Aperture Grille"], 
         curvesAllowed: true,
         bezelClass: "monitor-bezel bezel-90s",
         wallpaper: "#008080",
+        desktopHTML: `<div class="desktop-icon icon-90s" onclick="openApp()"><span>💾</span>Directory</div>`,
         flavors: [
-          { name: "Windows 1.0 / 2.0", css: "[https://cdn.jsdelivr.net/npm/98.css@0.1.17/build/98.min.css](https://cdn.jsdelivr.net/npm/98.css@0.1.17/build/98.min.css)" },
-          { name: "Mac System 6", css: "[https://cdn.jsdelivr.net/npm/@sakun/system.css@1.0.4/dist/system.css](https://cdn.jsdelivr.net/npm/@sakun/system.css@1.0.4/dist/system.css)" }
+          { name: "Windows 1.0 / 2.0", css: "https://cdn.jsdelivr.net/npm/98.css@0.1.17/build/98.min.css" },
+          { name: "Mac System 6", css: "https://cdn.jsdelivr.net/npm/@sakun/system.css@1.0.4/dist/system.css" }
+        ],
+        palettes: [
+          { name: "Default System", border: "transparent", bg: "transparent", filter: "none" },
+          { name: "High Contrast", border: "#ffffff", bg: "#000000", filter: "grayscale(100%) contrast(200%)" }
+        ],
+        textColors: [
+          { name: "System Black", hex: "#000000" },
+          { name: "System White", hex: "#ffffff" }
         ]
       },
-     "90s": {
-       displays: ["CRT Aperture Grille", "Early LCD"],
+      "90s": { 
+        displays: ["CRT Aperture Grille", "Early LCD"], 
         curvesAllowed: true,
         bezelClass: "monitor-bezel bezel-90s",
         wallpaper: "#008080",
+        desktopHTML: `<div class="desktop-icon icon-90s" onclick="openApp()"><span>🌐</span>Internet Browser</div><div class="desktop-icon icon-90s" onclick="openApp()"><span>📁</span>My Documents</div>`,
         flavors: [
-          { name: "Windows 95/98", css: "[https://cdn.jsdelivr.net/npm/98.css@0.1.17/build/98.min.css](https://cdn.jsdelivr.net/npm/98.css@0.1.17/build/98.min.css)" },
-          { name: "Mac OS 9", css: "[https://cdn.jsdelivr.net/npm/@sakun/system.css@1.0.4/dist/system.css](https://cdn.jsdelivr.net/npm/@sakun/system.css@1.0.4/dist/system.css)" }
+          { name: "Windows 95/98", css: "https://cdn.jsdelivr.net/npm/98.css@0.1.17/build/98.min.css" },
+          { name: "Mac OS 9", css: "https://cdn.jsdelivr.net/npm/@sakun/system.css@1.0.4/dist/system.css" }
+        ],
+        palettes: [
+          { name: "Standard Grey", border: "transparent", bg: "transparent", filter: "none" },
+          { name: "Vaporwave Tint", border: "#ff00ff", bg: "rgba(0,255,255,0.2)", filter: "hue-rotate(90deg)" }
+        ],
+        textColors: [
+          { name: "Black", hex: "#000000" },
+          { name: "Navy Blue", hex: "#000080" }
         ]
       },
-     "2000s": {
-       displays: ["CRT Flat-Screen", "Standard LCD"],
+      "2000s": { 
+        displays: ["CRT Flat-Screen", "Standard LCD"], 
         curvesAllowed: true,
         bezelClass: "monitor-bezel bezel-2000s",
-       wallpaper: "url('PASTE_YOUR_IMAGE_LINK_HERE')",
+        wallpaper: "url('PASTE_YOUR_IMAGE_LINK_HERE')", 
+        desktopHTML: `<div class="desktop-icon icon-2000s" onclick="openApp()"><span>🌐</span>Aero Browser</div><div class="desktop-icon icon-2000s" onclick="openApp()"><span>🎵</span>Media Player</div>`,
         flavors: [
-          { name: "Windows Vista / 7", css: "[https://cdn.jsdelivr.net/npm/7.css/dist/7.css](https://cdn.jsdelivr.net/npm/7.css/dist/7.css)" },
-          { name: "Windows XP", css: "[https://cdn.jsdelivr.net/npm/xp.css@0.2.2/dist/XP.css](https://cdn.jsdelivr.net/npm/xp.css@0.2.2/dist/XP.css)" }
+          { name: "Windows Vista / 7", css: "https://cdn.jsdelivr.net/npm/7.css/dist/7.css" },
+          { name: "Windows XP", css: "https://cdn.jsdelivr.net/npm/xp.css@0.2.2/dist/XP.css" }
+        ],
+        palettes: [
+          { name: "Aero Glass (Blue)", border: "transparent", bg: "transparent", filter: "none" },
+          { name: "Royale (Green Tint)", border: "#228b22", bg: "rgba(34,139,34,0.1)", filter: "hue-rotate(-50deg)" },
+          { name: "Zune (Orange Tint)", border: "#ff8c00", bg: "rgba(255,140,0,0.1)", filter: "hue-rotate(150deg)" }
+        ],
+        textColors: [
+          { name: "Default Black", hex: "#000000" },
+          { name: "White (Shadowed)", hex: "#ffffff" }
         ]
       },
-     "2010s": {
-       displays: ["Modern Flat Panel (No Filter)"],
+      "2010s": { 
+        displays: ["Modern Flat Panel (No Filter)"], 
         curvesAllowed: false,
         bezelClass: "monitor-bezel bezel-modern",
         wallpaper: "linear-gradient(135deg, #1f1c2c 0%, #928dab 100%)",
+        desktopHTML: `<div class="desktop-icon icon-2000s" onclick="openApp()"><span>🌍</span>Edge Browser</div>`,
         flavors: [
-          { name: "Modern Flat", css: "[https://cdn.jsdelivr.net/npm/chota@0.9.2/dist/chota.min.css](https://cdn.jsdelivr.net/npm/chota@0.9.2/dist/chota.min.css)" }
+          { name: "Modern Flat", css: "https://cdn.jsdelivr.net/npm/chota@0.9.2/dist/chota.min.css" }
+        ],
+        palettes: [
+          { name: "Light Mode", border: "#dddddd", bg: "#ffffff", filter: "none" },
+          { name: "Dark Mode", border: "#333333", bg: "#1a1a1a", filter: "grayscale(20%)" }
+        ],
+        textColors: [
+          { name: "Dark Slate", hex: "#333333" },
+          { name: "Off White", hex: "#f4f4f4" }
         ]
       }
     };
@@ -184,25 +241,28 @@
       "CRT Shadow Mask": "filter-80s",
       "CRT Aperture Grille": "filter-90s-crt",
       "Early LCD": "filter-lcd",
-     "CRT Flat-Screen": "filter-90s-crt",
+      "CRT Flat-Screen": "filter-90s-crt", 
       "Standard LCD": "filter-modern",
       "Modern Flat Panel (No Filter)": "filter-modern"
     };
 
     const eraSelect = document.getElementById("era-select");
     const flavorSelect = document.getElementById("flavor-select");
+    const paletteSelect = document.getElementById("palette-select");
+    const textColorSelect = document.getElementById("text-color-select");
     const displaySelect = document.getElementById("display-select");
     const curveSlider = document.getElementById("curve-slider");
-    const textColorPicker = document.getElementById("text-color-picker");
     
     const screenFilter = document.getElementById("screen-filter");
     const mainScreen = document.getElementById("main-screen");
     const osThemeLink = document.getElementById("os-theme");
     const physicalMonitor = document.getElementById("physical-monitor");
-    
-    const windowTitle = document.getElementById("window-title-text");
-    const windowContentTitle = document.getElementById("window-content-title");
-    const windowContentText = document.getElementById("window-content-text");
+    const desktopArea = document.getElementById("desktop-area");
+    const appWindow = document.getElementById("app-window");
+    const rootStyles = document.documentElement.style;
+
+    function openApp() { appWindow.style.display = "block"; }
+    function closeApp() { appWindow.style.display = "none"; }
 
     function updateDashboard() {
       const currentEra = eraSelect.value;
@@ -213,60 +273,77 @@
       mainScreen.style.backgroundSize = "cover";
       mainScreen.style.backgroundPosition = "center";
       
+      desktopArea.innerHTML = rules.desktopHTML;
+      
       displaySelect.innerHTML = "";
       rules.displays.forEach(display => {
-        const newOption = document.createElement("option");
-        newOption.value = display;
-        newOption.textContent = display;
-        displaySelect.appendChild(newOption);
+        const option = document.createElement("option");
+        option.value = display;
+        option.textContent = display;
+        displaySelect.appendChild(option);
       });
 
       flavorSelect.innerHTML = "";
-      rules.flavors.forEach((flavor, index) => {
-        const newOption = document.createElement("option");
-        newOption.value = index; // Store the index number so we can look it up later
-        newOption.textContent = flavor.name;
-        flavorSelect.appendChild(newOption);
+      rules.flavors.forEach((flavor, idx) => {
+        const option = document.createElement("option");
+        option.value = idx;
+        option.textContent = flavor.name;
+        flavorSelect.appendChild(option);
+      });
+
+      paletteSelect.innerHTML = "";
+      rules.palettes.forEach((pal, idx) => {
+        const option = document.createElement("option");
+        option.value = idx;
+        option.textContent = pal.name;
+        paletteSelect.appendChild(option);
+      });
+
+      textColorSelect.innerHTML = "";
+      rules.textColors.forEach(color => {
+        const option = document.createElement("option");
+        option.value = color.hex;
+        option.textContent = color.name;
+        textColorSelect.appendChild(option);
       });
 
       if (rules.curvesAllowed) {
         curveSlider.disabled = false;
       } else {
         curveSlider.disabled = true;
-       curveSlider.value = 0;
+        curveSlider.value = 0; 
       }
       
-      // Load the CSS of the first flavor in the list by default
       applyFlavor();
+      applyPalette();
+      applyTextColor();
       applyFilter();
       applyCurve();
     }
 
-    // NEW FUNCTION: Switches CSS based on the flavor dropdown
     function applyFlavor() {
-      const currentEra = eraSelect.value;
-      const selectedFlavorIndex = flavorSelect.value;
-      const activeFlavor = eraData[currentEra].flavors[selectedFlavorIndex];
-      
-      osThemeLink.href = activeFlavor.css;
-      
-      // If we are in the 70s, automatically adjust the color picker based on the flavor
-      if (currentEra === "70s" && activeFlavor.color) {
-        textColorPicker.value = activeFlavor.color;
-        applyTextColor(); // Force the color update
-      } else if (currentEra !== "70s") {
-        // Reset colors for non-terminal eras
-        windowTitle.style.color = "";
-        windowContentTitle.style.color = "";
-        windowContentText.style.color = "";
-      }
+      const era = eraData[eraSelect.value];
+      const flavor = era.flavors[flavorSelect.value];
+      osThemeLink.href = flavor.css;
+    }
+
+    function applyPalette() {
+      const era = eraData[eraSelect.value];
+      const palette = era.palettes[paletteSelect.value];
+      rootStyles.setProperty('--custom-border-color', palette.border);
+      rootStyles.setProperty('--custom-bg-tint', palette.bg);
+      rootStyles.setProperty('--icon-filter', palette.filter);
+    }
+
+    function applyTextColor() {
+      rootStyles.setProperty('--custom-text-color', textColorSelect.value);
     }
 
     function applyFilter() {
-      const selectedDisplay = displaySelect.value;
-     screenFilter.className = cssClassMap[selectedDisplay];
+      const display = displaySelect.value;
+      screenFilter.className = cssClassMap[display]; 
       
-      if (selectedDisplay.includes("LCD")) {
+      if (display.includes("LCD")) {
         curveSlider.disabled = true;
         curveSlider.value = 0;
         applyCurve();
@@ -278,30 +355,15 @@
     function applyCurve() {
       mainScreen.className = "screen curve-" + curveSlider.value;
     }
-    
-    function applyTextColor() {
-      if(eraSelect.value === "70s") {
-        const color = textColorPicker.value;
-        windowTitle.style.color = color;
-        windowContentTitle.style.color = color;
-        windowContentText.style.color = color;
-      }
-    }
 
     eraSelect.addEventListener("change", updateDashboard);
-    flavorSelect.addEventListener("change", applyFlavor); // Added listener for flavor changes
+    flavorSelect.addEventListener("change", applyFlavor);
+    paletteSelect.addEventListener("change", applyPalette);
+    textColorSelect.addEventListener("change", applyTextColor);
     displaySelect.addEventListener("change", applyFilter);
     curveSlider.addEventListener("input", applyCurve);
-    textColorPicker.addEventListener("input", applyTextColor);
 
     updateDashboard();
-
-    const browserIcon = document.getElementById("browser-icon");
-    const appWindow = document.getElementById("app-window");
-    const closeBtn = document.getElementById("close-btn");
-
-    browserIcon.addEventListener("click", () => { appWindow.style.display = "block"; });
-    closeBtn.addEventListener("click", () => { appWindow.style.display = "none"; });
   </script>
 
 </body>

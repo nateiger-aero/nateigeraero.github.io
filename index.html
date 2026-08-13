@@ -5,16 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Thats Not My Future</title>
   
-  <!-- This pulls in the Frutiger Aero styling -->
   <link rel="stylesheet" href="[https://cdn.jsdelivr.net/npm/7.css/dist/7.css](https://cdn.jsdelivr.net/npm/7.css/dist/7.css)">
   
   <style>
-    body { background-color: #008080; padding: 20px; }
+   body {
+      /* The background layer */
+     background-image: url("https://substackcdn.com/image/fetch/$s_!GZNa!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd0198d18-0ea7-4538-804c-532efa736a8f_1080x592.jpeg");
+     background-size: cover;
+     background-attachment: fixed;
+      background-position: center;
+     padding: 40px 20px;
+    }
+    
+    /* The Aero Glass Effect */
+    .glass-window {
+      background: rgba(255, 255, 255, 0.4) !important;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2), inset 0 0 10px rgba(255,255,255,0.5);
+      border-radius: 8px;
+    }
+    
+    /* Custom 2000s Cursor for links */
+    a {
+      cursor: pointer;
+    }
+    a:hover {
+      /* Adds a custom help/loading cursor on hover */
+     cursor: help;
+    }
   </style>
 </head>
 <body>
-  <!-- The main application window -->
-  <div class="window" style="max-width: 800px; margin: 0 auto;">
+  <div class="window glass-window" style="max-width: 800px; margin: 0 auto;">
     
     <div class="title-bar">
       <div class="title-bar-text">thatsnotmyfuture.exe - Root Directory</div>
@@ -26,17 +49,19 @@
     </div>
     
     <div class="window-body">
-      <h1>The Future We Were Promised</h1>
-      <p>A digital companion mapping the cultural impact of modern technology.</p>
-      <hr>
+      <h1 style="text-align: center; margin-top: 10px;">The Future We Were Promised</h1>
+      <p style="text-align: center; font-size: 1.1em;">A digital companion mapping the cultural impact of modern technology.</p>
       
-      <!-- The Rabbit Hole Navigation -->
+      <hr style="margin: 20px 0;">
+      
       <h3>System Directories:</h3>
       <ul class="tree-view">
         <li><a href="technology/index.html">>[DIR] Technology & Hardware</a></li>
         <li><a href="culture/index.html">>[DIR] Digital Culture</a></li>
         <li><a href="sources/index.html">>[DIR] Project Citations</a></li>
       </ul>
+      
+      <br>
     </div>
   </div>
 </body>

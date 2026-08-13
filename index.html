@@ -35,26 +35,22 @@
     .control-group label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #fff; }
     .control-group select, .control-group input[type="range"] { width: 100%; background: #222; color: #39ff14; border: 1px solid #444; padding: 8px; box-sizing: border-box; }
     
-    /* DESKTOP & TASKBAR ARCHITECTURE */
-    #desktop-workspace { flex: 1; position: relative; padding: 20px; display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
+    /* WORKSPACE & ICONS GRID */
+    #desktop-workspace { flex: 1; position: relative; padding: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); grid-auto-rows: max-content; gap: 15px; align-content: start; }
     
-    .desktop-icon { text-align: center; color: var(--custom-text-color, #fff); text-shadow: 1px 1px 3px rgba(0,0,0,0.8); cursor: pointer; filter: var(--icon-filter); transition: all 0.2s; width: 80px; font-size: 12px; }
+    .desktop-icon { text-align: center; color: var(--custom-text-color, #fff); text-shadow: 1px 1px 3px rgba(0,0,0,0.8); cursor: pointer; filter: var(--icon-filter); transition: all 0.2s; width: 85px; font-size: 12px; padding: 5px; }
     .desktop-icon:hover { background: rgba(255,255,255,0.2); border-radius: 4px; }
-    .desktop-icon span { font-size: 40px; display: block; margin-bottom: 4px; }
+    .desktop-icon span { font-size: 38px; display: block; margin-bottom: 4px; }
 
     /* AUTHENTIC TASKBARS / DOCKS */
-    .taskbar { height: 35px; width: 100%; display: flex; align-items: center; padding: 0 5px; box-sizing: border-box; z-index: 50; font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 12px; }
-    
-    /* Windows XP Taskbar */
+    .taskbar { height: 35px; width: 100%; display: flex; align-items: center; padding: 0 5px; box-sizing: border-box; z-index: 50; font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 12px; flex-shrink: 0; }
     .taskbar-xp { background: linear-gradient(to bottom, #1f2f86 0%, #1738c7 50%, #102594 100%); border-top: 1px solid #6085ff; color: white; }
     .start-btn-xp { background: linear-gradient(to bottom, #3c893c 0%, #2e732e 50%, #1f571f 100%); border: 1px solid #44b544; border-radius: 4px; padding: 2px 12px; color: white; font-weight: bold; font-style: italic; cursor: pointer; display: flex; align-items: center; gap: 5px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.4); }
 
-    /* Windows Vista / 7 Aero Taskbar */
     .taskbar-aero { background: rgba(20, 40, 70, 0.6); backdrop-filter: blur(15px); border-top: 1px solid rgba(255,255,255,0.4); color: white; height: 40px; }
     .start-btn-aero { width: 34px; height: 34px; background: radial-gradient(circle, rgba(60,140,220,0.9) 0%, rgba(10,40,90,0.9) 100%); border: 1px solid rgba(255,255,255,0.6); border-radius: 50%; cursor: pointer; box-shadow: 0 0 10px rgba(0,150,255,0.6); }
 
-    /* Mac OS X Dock */
-    .dock-osx { background: rgba(240, 240, 240, 0.4); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.6); border-radius: 15px 15px 0 0; height: 60px; width: 60%; margin: 0 auto; display: flex; justify-content: center; align-items: center; gap: 15px; z-index: 50; box-shadow: 0 -5px 20px rgba(0,0,0,0.2); }
+    .dock-osx { background: rgba(240, 240, 240, 0.4); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.6); border-radius: 15px 15px 0 0; height: 60px; width: 60%; margin: 0 auto; display: flex; justify-content: center; align-items: center; gap: 15px; z-index: 50; box-shadow: 0 -5px 20px rgba(0,0,0,0.2); flex-shrink: 0; }
     .dock-icon { font-size: 30px; cursor: pointer; transition: transform 0.2s; }
     .dock-icon:hover { transform: scale(1.3); }
 
@@ -86,31 +82,43 @@
         <div class="glass-glare"></div>
         <div id="screen-filter" class="filter-modern"></div>
         
-        <!-- THE WORKSPACE -->
+        <!-- THE WORKSPACE (DESKTOP ICONS) -->
         <div id="desktop-workspace">
-          <div class="desktop-icon" onclick="openApp()">
+          <div class="desktop-icon" onclick="openApp('Internet', 'Accessing core research directories and hardware evolution logs.')">
             <span>🌐</span>
-            <div>Aero Browser</div>
+            <div>Internet</div>
           </div>
-          <div class="desktop-icon" onclick="openApp()">
+          <div class="desktop-icon" onclick="openApp('File Explorer', 'Browsing slide decks, papers, and project presentations.')">
+            <span>📁</span>
+            <div>File Explorer</div>
+          </div>
+          <div class="desktop-icon" onclick="openApp('Calendar', 'Viewing the interactive timeline and historical milestones.')">
+            <span>📅</span>
+            <div>Calendar</div>
+          </div>
+          <div class="desktop-icon" onclick="openApp('Media Player', 'Playing linked video essays and audio assets.')">
             <span>🎵</span>
             <div>Media Player</div>
           </div>
+          <div class="desktop-icon" onclick="openApp('Trivia.exe', 'Launching the interactive technology trivia challenge minigame.')">
+            <span>🕹️</span>
+            <div>Trivia.exe</div>
+          </div>
+        </div>
 
-          <!-- APP WINDOW -->
-          <div id="app-window" class="window glass-window">
-            <div class="title-bar">
-              <div class="title-bar-text">Application Directory</div>
-              <div class="title-bar-controls">
-                <button aria-label="Minimize"></button>
-                <button aria-label="Maximize"></button>
-                <button aria-label="Close" onclick="closeApp()"></button>
-              </div>
+        <!-- APP WINDOW -->
+        <div id="app-window" class="window glass-window">
+          <div class="title-bar">
+            <div class="title-bar-text" id="app-title-bar">Application Directory</div>
+            <div class="title-bar-controls">
+              <button aria-label="Minimize"></button>
+              <button aria-label="Maximize"></button>
+              <button aria-label="Close" onclick="closeApp()"></button>
             </div>
-            <div class="window-body">
-              <h2>Welcome to the Directory</h2>
-              <p>Explore sources, summaries, and digital culture archives.</p>
-            </div>
+          </div>
+          <div class="window-body">
+            <h2 id="app-heading">Welcome to the Directory</h2>
+            <p id="app-desc">Explore sources, summaries, and digital culture archives.</p>
           </div>
         </div>
 
@@ -200,18 +208,20 @@
           { 
             name: "Windows Vista / 7", 
             css: "https://cdn.jsdelivr.net/npm/7.css/dist/7.css",
-            taskbar: `<div class="taskbar taskbar-aero"><button class="start-btn-aero" onclick="openApp()"></button><span style="margin-left:10px; font-weight:600;">Aero Desktop</span></div>`
+            taskbar: `<div class="taskbar taskbar-aero"><button class="start-btn-aero" onclick="openApp('System', 'Windows Aero Desktop active.')"></button><span style="margin-left:10px; font-weight:600;">Windows 7 Desktop</span></div>`,
+            wall: "linear-gradient(135deg, #024386 0%, #1772c9 50%, #002244 100%)" // Rich Frutiger blue-teal fallback
           },
           { 
             name: "Windows XP", 
             css: "https://cdn.jsdelivr.net/npm/xp.css@0.2.2/dist/XP.css",
-            taskbar: `<div class="taskbar taskbar-xp"><button class="start-btn-xp" onclick="openApp()">start</button><div style="margin-left:15px; border-left:1px solid #102594; height:25px;"></div><div style="background:#3c893c; padding:3px 15px; border-radius:3px; margin-left:10px; border:1px solid #44b544;">Aero Browser</div></div>`,
-            wall: "linear-gradient(to bottom, #3a6ea5 0%, #0055ea 100%)" // Fallback bliss color if image fails
+            taskbar: `<div class="taskbar taskbar-xp"><button class="start-btn-xp" onclick="openApp('System', 'Windows XP Professional active.')">start</button><div style="margin-left:15px; border-left:1px solid #102594; height:25px;"></div><div style="background:#3c893c; padding:3px 15px; border-radius:3px; margin-left:10px; border:1px solid #44b544;">Project Archive</div></div>`,
+            wall: "linear-gradient(to bottom, #3a6ea5 0%, #2055aa 50%, #103366 100%)" // Bliss blue sky fallback
           },
           { 
             name: "Mac OS X Tiger", 
-            css: "https://cdn.jsdelivr.net/npm/7.css/dist/7.css", // Uses clean window layout
-            taskbar: `<div class="dock-osx"><div class="dock-icon" onclick="openApp()" title="Browser">🌐</div><div class="dock-icon" onclick="openApp()" title="Music">🎵</div><div class="dock-icon" onclick="openApp()" title="Files">📁</div></div>`
+            css: "https://cdn.jsdelivr.net/npm/7.css/dist/7.css", 
+            taskbar: `<div class="dock-osx"><div class="dock-icon" onclick="openApp('Internet', 'Safari Browser - Project Research')" title="Internet">🌐</div><div class="dock-icon" onclick="openApp('File Explorer', 'Finder - Presentations')" title="Files">📁</div><div class="dock-icon" onclick="openApp('Calendar', 'iCal - Timelines')" title="Calendar">📅</div><div class="dock-icon" onclick="openApp('Media Player', 'QuickTime - Video Links')" title="Media">🎵</div><div class="dock-icon" onclick="openApp('Trivia.exe', 'Interactive Mini-game')" title="Trivia">🕹️</div></div>`,
+            wall: "radial-gradient(circle, #29487d 0%, #192b4d 100%)" // Aqua/Tiger deep space blue fallback
           }
         ],
         palettes: [
@@ -253,9 +263,17 @@
     const physicalMonitor = document.getElementById("physical-monitor");
     const desktopTaskbar = document.getElementById("desktop-taskbar");
     const appWindow = document.getElementById("app-window");
+    const appTitleBar = document.getElementById("app-title-bar");
+    const appHeading = document.getElementById("app-heading");
+    const appDesc = document.getElementById("app-desc");
     const rootStyles = document.documentElement.style;
 
-    function openApp() { appWindow.style.display = "block"; }
+    function openApp(title, content) {
+      appTitleBar.textContent = title + " - Application";
+      appHeading.textContent = title;
+      appDesc.textContent = content;
+      appWindow.style.display = "block";
+    }
     function closeApp() { appWindow.style.display = "none"; }
 
     function updateDashboard() {
@@ -292,7 +310,6 @@
       const flavor = era.flavors[flavorSelect.value];
       osThemeLink.href = flavor.css;
       
-      // If the subflavor has a custom taskbar (like XP vs Aero vs Mac in 2000s), load it!
       if (flavor.taskbar) {
         desktopTaskbar.innerHTML = flavor.taskbar;
       }

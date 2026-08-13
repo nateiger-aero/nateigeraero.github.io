@@ -33,6 +33,7 @@
       color: #fff;
       border: 1px solid #555;
       padding: 3px;
+      vertical-align: middle;
     }
     
     /* THE MONITOR FRAME */
@@ -68,31 +69,24 @@
       position: relative;
       overflow: hidden;
       border: 2px solid #000;
+      transition: all 0.3s ease; /* Makes the curve slider smooth */
     }
     
     /* ========================================= */
-    /* NEW: THE ERA DISPLAY FILTERS              */
+    /* ERA DISPLAY FILTERS                       */
     /* ========================================= */
-    
     #screen-filter {
       position: absolute;
-     top: 0;
-     left: 0;
-     width: 100%;
-      height: 100%;
-      pointer-events: none; /* Crucial: allows clicking the desktop beneath it */
-      z-index: 100; /* Puts the filter on top of everything inside the screen */
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 100;
     }
-    
-    /* 70s Vector: Heavy green phosphor wash and thick scanlines */
     .filter-70s {
       background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
       background-size: 100% 4px;
      background-color: rgba(0, 40, 0, 0.7);
       box-shadow: inset 0 0 80px rgba(0, 255, 0, 0.4);
     }
-    
-    /* 80s Shadow Mask: RGB dot matrix pattern */
     .filter-80s {
      background-image: radial-gradient(rgba(255,0,0,0.15) 1px, transparent 2px),
                        radial-gradient(rgba(0,255,0,0.15) 1px, transparent 2px),
@@ -101,26 +95,52 @@
       background-position: 0 0, 1px 1px, 2px 2px;
       box-shadow: inset 0 0 60px rgba(0,0,0,0.8);
     }
-    
-    /* 90s Aperture Grille: Fine vertical lines and heavy corner vignette */
     .filter-90s-crt {
       background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 50%, rgba(0,0,0,0.1) 100%);
       background-size: 3px 100%;
       box-shadow: inset 0 0 100px rgba(0,0,0,0.9);
     }
-    
-    /* Early LCD: Visible pixel grid, slightly washed out blacks */
     .filter-lcd {
      background-image: linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
                         linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
       background-size: 2px 2px;
       background-color: rgba(255, 255, 255, 0.05);
     }
+    .filter-modern { background: none; }
     
-    /* Modern: Clear screen, no interference */
-    .filter-modern {
-      background: none;
+    /* ========================================= */
+    /* THE CRT CURVE & GLARE LOGIC               */
+    /* ========================================= */
+    .glass-glare {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 40%);
+      pointer-events: none;
+      z-index: 101;
+      display: none; /* Hidden by default */
     }
+    
+    /* Level 0: Flat */
+    .curve-0 {
+      border-radius: 0;
+      transform: none;
+    }
+    /* Level 1: Slight Curve */
+    .curve-1 {
+      border-radius: 3% / 4%;
+      transform: scale(0.98);
+      box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
+    }
+    .curve-1 .glass-glare { display: block; opacity: 0.5; }
+    
+    /* Level 2: Heavy Curve */
+    .curve-2 {
+      border-radius: 5% / 7%;
+      transform: scale(0.95);
+      box-shadow: inset 0 0 120px rgba(0,0,0,1);
+    }
+    .curve-2 .glass-glare { display: block; opacity: 1; }
+    
   </style>
 </head>
 <body>
@@ -147,15 +167,17 @@
   <div class="monitor-bezel">
     <div class="power-light"></div>
     
-    <div class="screen">
+    <!-- The main screen container gets the curve classes added to it -->
+    <div id="main-screen" class="screen curve-0">
       
-      <!-- NEW: The transparent overlay that holds the visual effects -->
+      <!-- The Glare Overlay -->
+      <div class="glass-glare"></div>
+      
+      <!-- The Display Technology Filter Overlay -->
       <div id="screen-filter" class="filter-modern"></div>
       
-      <!-- Temporary Desktop Text so you can see the filter effects -->
       <h2 style="color: white; text-align: center; margin-top: 15%; position: relative; z-index: 10;">
-        Display Filter Test<br>
-        <span style="font-size: 0.5em;">Change the dropdowns above to see the hardware change!</span>
+        Drag the Curve Intensity slider!<br>
       </h2>
 
     </div>
@@ -171,13 +193,12 @@
       "2010s": { displays: ["Modern Flat Panel (No Filter)"], curvesAllowed: false }
     };
 
-    // Dictionary mapping dropdown text to our new CSS classes
     const cssClassMap = {
       "CRT Vector Phosphor": "filter-70s",
       "CRT Shadow Mask": "filter-80s",
       "CRT Aperture Grille": "filter-90s-crt",
       "Early LCD": "filter-lcd",
-      "CRT Flat-Screen": "filter-90s-crt", // Reuse aperture logic for late CRTs
+     "CRT Flat-Screen": "filter-90s-crt",
       "Standard LCD": "filter-modern",
       "Modern Flat Panel (No Filter)": "filter-modern"
     };
@@ -186,6 +207,7 @@
     const displaySelect = document.getElementById("display-select");
     const curveSlider = document.getElementById("curve-slider");
     const screenFilter = document.getElementById("screen-filter");
+    const mainScreen = document.getElementById("main-screen");
 
     function updateDashboard() {
       const currentEra = eraSelect.value;
@@ -207,19 +229,35 @@
        curveSlider.value = 0;
       }
       
-      // Apply the filter immediately when Era changes
       applyFilter();
+      applyCurve();
     }
 
-    // New function to change the CSS class when the Display dropdown changes
     function applyFilter() {
       const selectedDisplay = displaySelect.value;
       const cssClass = cssClassMap[selectedDisplay];
-      screenFilter.className = cssClass; // Swaps the CSS class on the overlay
+     screenFilter.className = cssClass;
+      
+      // Auto-disable curve if LCD is selected within an older era
+      if (selectedDisplay.includes("LCD")) {
+        curveSlider.disabled = true;
+        curveSlider.value = 0;
+        applyCurve();
+      } else if (eraData[eraSelect.value].curvesAllowed) {
+        curveSlider.disabled = false;
+      }
+    }
+
+    // New function to handle the Curve Slider
+    function applyCurve() {
+      const intensity = curveSlider.value;
+      // Overwrites the class to curve-0, curve-1, or curve-2
+      mainScreen.className = "screen curve-" + intensity;
     }
 
     eraSelect.addEventListener("change", updateDashboard);
     displaySelect.addEventListener("change", applyFilter);
+    curveSlider.addEventListener("input", applyCurve); // Listens for the slider moving
 
     updateDashboard();
   </script>

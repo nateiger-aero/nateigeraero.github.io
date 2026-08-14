@@ -20,17 +20,43 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow: hidden;
       cursor: url('assets/ui/2000s/cursor/frutiger pack/FrutigerAero_Default.cur'), auto;
     }
-    button, .desktop-icon, .browser-tab, .title-bar-controls button, .taskbar button, .dock-icon, .wallpaper-button {
+    body[data-cursor="default"] { cursor: url('assets/ui/2000s/cursor/frutiger pack/FrutigerAero_Default.cur'), auto; }
+    body[data-cursor="hover"] { cursor: url('assets/ui/2000s/cursor/frutiger pack/FrutigerAero_Hover.cur'), pointer; }
+    body[data-cursor="cross"] { cursor: url('assets/ui/2000s/cursor/frutiger pack/FrutigerAero_Cross.cur'), crosshair; }
+    body[data-cursor="text"] { cursor: url('assets/ui/2000s/cursor/frutiger pack/FrutigerAero_Text_Select.cur'), text; }
+    body[data-cursor="busy"] { cursor: none; }
+    body[data-cursor="busy"] * { cursor: none !important; }
+    .desktop-icon:hover, .desktop-icon:focus,
+    .browser-tab:hover, .browser-tab:focus,
+    button:hover, button:focus,
+    .taskbar button:hover, .taskbar button:focus,
+    .dock-icon:hover, .dock-icon:focus,
+    .wallpaper-button:hover, .wallpaper-button:focus,
+    .title-bar-controls button:hover, .title-bar-controls button:focus,
+    .nav-arrows:hover, .nav-arrows:focus {
       cursor: url('assets/ui/2000s/cursor/frutiger pack/FrutigerAero_Hover.cur'), pointer;
     }
-    .app-window-body, .browser-content, .address-bar, .article-card, .sidebar-box, .article-grid p, .article-grid h3, .window-body {
+    .app-window-body:hover, .browser-content:hover, .address-bar:hover,
+    .article-card:hover, .sidebar-box:hover, .window-body:hover {
       cursor: url('assets/ui/2000s/cursor/frutiger pack/FrutigerAero_Text_Select.cur'), text;
     }
-    body.is-selecting {
-      cursor: url('assets/ui/2000s/cursor/frutiger pack/FrutigerAero_Cross.cur'), crosshair;
+
+    #custom-cursor {
+      position: fixed; left: 0; top: 0; width: 28px; height: 28px; pointer-events: none; z-index: 2000; display: none;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, rgba(255,255,255,0) 0deg, rgba(99,174,255,0.95) 15deg, rgba(255,255,255,0) 45deg, rgba(99,174,255,0.7) 90deg, rgba(255,255,255,0) 130deg, rgba(99,174,255,0.35) 180deg, rgba(255,255,255,0) 210deg, rgba(99,174,255,0.25) 300deg, rgba(255,255,255,0) 360deg);
+      box-shadow: 0 0 14px rgba(115,180,255,0.8), inset 0 0 10px rgba(255,255,255,0.7);
+      animation: custom-busy-spin 0.7s linear infinite;
     }
-    body.cursor-busy, body.cursor-busy * {
-      cursor: url('assets/ui/2000s/cursor/frutiger pack/FrutigerAero_Working.ani'), wait !important;
+    #custom-cursor::after {
+      content: ""; position: absolute; inset: 7px; border-radius: 50%; background: rgba(15,34,60,0.18); border: 1px solid rgba(255,255,255,0.25);
+    }
+    body[data-cursor="busy"] #custom-cursor { display: block; }
+    @keyframes custom-busy-spin {
+      0% { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+      50% { transform: translate(-50%, -50%) rotate(180deg) scale(1.08); }
+      100% { transform: translate(-50%, -50%) rotate(360deg) scale(1); }
     }
     
     #monitor-station { flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px; }
@@ -60,7 +86,7 @@
     
     .desktop-icon {
       text-align: center; color: var(--custom-text-color, #fff); text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-      cursor: pointer; filter: var(--icon-filter); transition: all 0.2s; width: 110px; font-size: 12px;
+      cursor: inherit; filter: var(--icon-filter); transition: all 0.2s; width: 110px; font-size: 12px;
       padding: 6px 4px; display: flex; flex-direction: column; align-items: center; justify-content: center;
       border-radius: 6px;
     }
@@ -368,7 +394,9 @@
     </div>
   </div>
 
-  <div id="control-deck">
+<div id="custom-cursor" aria-hidden="true"></div>
+
+    <div id="control-deck">
     <h2>SYSTEM CONFIG</h2>
 
     <select id="era-select" style="display:none;">
@@ -750,12 +778,81 @@
 
     let appOpenTimer = null;
 
+    function setCursorState(state) {
+      document.body.dataset.cursor = state;
+      const cursorMap = {
+        default: "url('assets/ui/2000s/cursor/frutiger pack/FrutigerAero_Default.cur'), auto",
+        hover: "url('assets/ui/2000s/cursor/frutiger pack/FrutigerAero_Hover.cur'), pointer",
+        cross: "url('assets/ui/2000s/cursor/frutiger pack/FrutigerAero_Cross.cur'), crosshair",
+        text: "url('assets/ui/2000s/cursor/frutiger pack/FrutigerAero_Text_Select.cur'), text",
+        busy: "none"
+      };
+      document.body.style.cursor = cursorMap[state] || cursorMap.default;
+      const customCursor = document.getElementById('custom-cursor');
+      if (customCursor) {
+        customCursor.style.display = state === 'busy' ? 'block' : 'none';
+      }
+    }
+
+    document.addEventListener('pointermove', (event) => {
+      const customCursor = document.getElementById('custom-cursor');
+      if (document.body.dataset.cursor === 'busy' && customCursor) {
+        customCursor.style.left = `${event.clientX}px`;
+        customCursor.style.top = `${event.clientY}px`;
+      }
+    });
+
+    function attachCursorBehavior() {
+      document.addEventListener('pointerover', (event) => {
+        if (document.body.dataset.cursor === 'busy') return;
+
+        const target = event.target;
+        if (target.closest('.desktop-icon, button, .browser-tab, .taskbar button, .dock-icon, .wallpaper-button, .title-bar-controls button, .nav-arrows')) {
+          setCursorState('hover');
+          return;
+        }
+
+        if (target.closest('.app-window-body, .browser-content, .address-bar, .article-card, .sidebar-box, .window-body')) {
+          setCursorState('text');
+        }
+      });
+
+      document.addEventListener('pointerout', (event) => {
+        const target = event.target;
+        if (target.closest('.desktop-icon, button, .browser-tab, .taskbar button, .dock-icon, .wallpaper-button, .title-bar-controls button, .nav-arrows, .app-window-body, .browser-content, .address-bar, .article-card, .sidebar-box, .window-body')) {
+          if (document.body.dataset.cursor !== 'busy' && document.body.dataset.cursor !== 'cross') {
+            setCursorState('default');
+          }
+        }
+      });
+
+      document.addEventListener('pointerdown', (event) => {
+        if (document.body.dataset.cursor === 'busy') return;
+        if (event.target.closest('.desktop-icon, button, .browser-tab, .wallpaper-button, .title-bar-controls button, .dock-icon')) {
+          setCursorState('cross');
+        }
+      });
+
+      document.addEventListener('pointerup', () => {
+        if (document.body.dataset.cursor === 'cross' || document.body.dataset.cursor === 'text') {
+          setCursorState('default');
+        }
+      });
+
+      document.addEventListener('pointerleave', () => {
+        if (document.body.dataset.cursor !== 'busy' && document.body.dataset.cursor !== 'cross') {
+          setCursorState('default');
+        }
+      });
+    }
+
     function openApp(title, content) {
       clearTimeout(appOpenTimer);
-      document.body.classList.add("cursor-busy");
+      setCursorState('busy');
       appWindow.style.display = "none";
 
-      const loadDelay = 1000 + Math.random() * 2000;
+      const randomTenths = Math.floor(Math.random() * 11);
+      const loadDelay = 1000 + (randomTenths * 100);
       appOpenTimer = setTimeout(() => {
         appTitleBar.textContent = title + " - Application";
         if (title === "Internet") renderInternetApp();
@@ -770,12 +867,12 @@
           renderBrowserTab("overview");
         }
         appWindow.style.display = "block";
-        document.body.classList.remove("cursor-busy");
+        setCursorState('default');
       }, loadDelay);
     }
     function closeApp() {
       clearTimeout(appOpenTimer);
-      document.body.classList.remove("cursor-busy");
+      setCursorState('default');
       appWindow.style.display = "none";
     }
 
@@ -869,12 +966,8 @@
     displaySelect.addEventListener("change", applyFilter);
     curveSlider.addEventListener("input", applyCurve);
 
-    document.addEventListener("pointerdown", () => {
-      document.body.classList.add("is-selecting");
-    });
-    document.addEventListener("pointerup", () => {
-      document.body.classList.remove("is-selecting");
-    });
+    setCursorState('default');
+    attachCursorBehavior();
 
     renderDesktopIcons();
     updateDashboard();

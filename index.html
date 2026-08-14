@@ -42,22 +42,14 @@
     }
 
     #custom-cursor {
-      position: fixed; left: 0; top: 0; width: 28px; height: 28px; pointer-events: none; z-index: 2000; display: none;
-      transform: translate(-50%, -50%);
-      border-radius: 50%;
-      background: conic-gradient(from 0deg, rgba(255,255,255,0) 0deg, rgba(99,174,255,0.95) 15deg, rgba(255,255,255,0) 45deg, rgba(99,174,255,0.7) 90deg, rgba(255,255,255,0) 130deg, rgba(99,174,255,0.35) 180deg, rgba(255,255,255,0) 210deg, rgba(99,174,255,0.25) 300deg, rgba(255,255,255,0) 360deg);
-      box-shadow: 0 0 14px rgba(115,180,255,0.8), inset 0 0 10px rgba(255,255,255,0.7);
-      animation: custom-busy-spin 0.7s linear infinite;
+      position: fixed; left: 0; top: 0; width: 26px; height: 26px; pointer-events: none; z-index: 2000; display: none;
+      transform: translate(0, 0); image-rendering: auto; filter: drop-shadow(0 0 8px rgba(118,185,255,0.8));
+      margin-left: -2px; margin-top: -2px;
     }
-    #custom-cursor::after {
-      content: ""; position: absolute; inset: 7px; border-radius: 50%; background: rgba(15,34,60,0.18); border: 1px solid rgba(255,255,255,0.25);
+    #custom-cursor img {
+      width: 100%; height: 100%; display: block; object-fit: contain; pointer-events: none;
     }
     body[data-cursor="busy"] #custom-cursor { display: block; }
-    @keyframes custom-busy-spin {
-      0% { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
-      50% { transform: translate(-50%, -50%) rotate(180deg) scale(1.08); }
-      100% { transform: translate(-50%, -50%) rotate(360deg) scale(1); }
-    }
     
     #monitor-station { flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px; }
     
@@ -394,7 +386,9 @@
     </div>
   </div>
 
-<div id="custom-cursor" aria-hidden="true"></div>
+<div id="custom-cursor" aria-hidden="true">
+      <img id="busy-cursor-frame" src="assets/ui/2000s/cursor/frutiger pack/working/FA_WorkingFRM1.png" alt="Working cursor frame" />
+    </div>
 
     <div id="control-deck">
     <h2>SYSTEM CONFIG</h2>
@@ -777,6 +771,11 @@
     }
 
     let appOpenTimer = null;
+    let busyCursorTimer = null;
+    const busyCursorFrames = [
+      "assets/ui/2000s/cursor/frutiger pack/working/FA_WorkingFRM1.png",
+      "assets/ui/2000s/cursor/frutiger pack/working/FA_WorkingFRM2.png"
+    ];
 
     function setCursorState(state) {
       document.body.dataset.cursor = state;
@@ -794,11 +793,41 @@
       }
     }
 
+    function placeBusyCursor(x, y) {
+      const customCursor = document.getElementById('custom-cursor');
+      if (!customCursor) return;
+      customCursor.style.left = `${x + 2}px`;
+      customCursor.style.top = `${y + 2}px`;
+    }
+
+    function startBusyCursor() {
+      const cursorImage = document.getElementById('busy-cursor-frame');
+      if (!cursorImage) return;
+      let frameIndex = 0;
+      clearInterval(busyCursorTimer);
+      busyCursorTimer = setInterval(() => {
+        frameIndex = (frameIndex + 1) % busyCursorFrames.length;
+        cursorImage.src = busyCursorFrames[frameIndex];
+      }, 120);
+      if (window.__lastPointerX !== undefined && window.__lastPointerY !== undefined) {
+        placeBusyCursor(window.__lastPointerX, window.__lastPointerY);
+      }
+    }
+
+    function stopBusyCursor() {
+      clearInterval(busyCursorTimer);
+      const cursorImage = document.getElementById('busy-cursor-frame');
+      if (cursorImage) {
+        cursorImage.src = busyCursorFrames[0];
+      }
+    }
+
     document.addEventListener('pointermove', (event) => {
+      window.__lastPointerX = event.clientX;
+      window.__lastPointerY = event.clientY;
       const customCursor = document.getElementById('custom-cursor');
       if (document.body.dataset.cursor === 'busy' && customCursor) {
-        customCursor.style.left = `${event.clientX}px`;
-        customCursor.style.top = `${event.clientY}px`;
+        placeBusyCursor(event.clientX, event.clientY);
       }
     });
 
@@ -849,6 +878,7 @@
     function openApp(title, content) {
       clearTimeout(appOpenTimer);
       setCursorState('busy');
+      startBusyCursor();
       appWindow.style.display = "none";
 
       const randomTenths = Math.floor(Math.random() * 11);
@@ -868,11 +898,13 @@
         }
         appWindow.style.display = "block";
         setCursorState('default');
+        stopBusyCursor();
       }, loadDelay);
     }
     function closeApp() {
       clearTimeout(appOpenTimer);
       setCursorState('default');
+      stopBusyCursor();
       appWindow.style.display = "none";
     }
 

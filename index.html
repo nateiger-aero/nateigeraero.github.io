@@ -15,7 +15,23 @@
       --icon-filter: none;
     }
     
-    body { background-color: #0a0a0a; margin: 0; height: 100vh; display: flex; flex-direction: row; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow: hidden; }
+    body {
+      background-color: #0a0a0a; margin: 0; height: 100vh; display: flex; flex-direction: row;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow: hidden;
+      cursor: url('assets/ui/2000s/cursor/frutiger pack/FrutigerAero_Default.cur'), auto;
+    }
+    button, .desktop-icon, .browser-tab, .title-bar-controls button, .taskbar button, .dock-icon, .wallpaper-button {
+      cursor: url('assets/ui/2000s/cursor/frutiger pack/FrutigerAero_Hover.cur'), pointer;
+    }
+    .app-window-body, .browser-content, .address-bar, .article-card, .sidebar-box, .article-grid p, .article-grid h3, .window-body {
+      cursor: url('assets/ui/2000s/cursor/frutiger pack/FrutigerAero_Text_Select.cur'), text;
+    }
+    body.is-selecting {
+      cursor: url('assets/ui/2000s/cursor/frutiger pack/FrutigerAero_Cross.cur'), crosshair;
+    }
+    body.cursor-busy, body.cursor-busy * {
+      cursor: url('assets/ui/2000s/cursor/frutiger pack/FrutigerAero_Working.ani'), wait !important;
+    }
     
     #monitor-station { flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px; }
     
@@ -380,6 +396,7 @@
         <option value="aurora">Aurora</option>
         <option value="glass-blue">Glass Blue</option>
         <option value="forest-glow">Forest Glow</option>
+        <option value="aeroglobe">Aeroglobe</option>
       </select>
     </div>
 
@@ -516,17 +533,24 @@
       "aero-blue": "linear-gradient(135deg, #80d0ff 0%, #4d9eea 25%, #1d67b8 58%, #0f2a52 100%)",
       "aurora": "linear-gradient(135deg, #6ac6ff 0%, #8ad8d6 22%, #1d66b8 54%, #1a2f4d 100%)",
       "glass-blue": "linear-gradient(135deg, #dfefff 0%, #96c5ff 20%, #4d85c9 45%, #1b3f6b 100%)",
-      "forest-glow": "linear-gradient(135deg, #c4f0ce 0%, #7dbca4 18%, #2e8d63 46%, #0d2e3e 100%)"
+      "forest-glow": "linear-gradient(135deg, #c4f0ce 0%, #7dbca4 18%, #2e8d63 46%, #0d2e3e 100%)",
+      "aeroglobe": "url('assets/wallpapers/2000s/aeroglobe.jpg')"
     };
 
     function renderDesktopIcons() {
       const sortedIcons = [...desktopIconDefs].sort((a, b) => a.label.localeCompare(b.label));
-      desktopWorkspace.innerHTML = sortedIcons.map((icon) => `
-        <div class="desktop-icon" data-app="${icon.app}" tabindex="0" role="button" aria-label="${icon.label}">
-          <span aria-hidden="true">${icon.glyph}</span>
-          <div>${icon.label}</div>
-        </div>
-      `).join("");
+      desktopWorkspace.innerHTML = sortedIcons.map((icon) => {
+        const iconContent = icon.app === "Internet"
+          ? `<img src="assets/ui/2000s/icons/internet2000.jpg" alt="${icon.label}" style="width:36px;height:36px;object-fit:cover;border-radius:8px;display:block;margin-bottom:4px;box-shadow:0 2px 8px rgba(0,0,0,0.25);">`
+          : `<span aria-hidden="true">${icon.glyph}</span>`;
+
+        return `
+          <div class="desktop-icon" data-app="${icon.app}" tabindex="0" role="button" aria-label="${icon.label}">
+            ${iconContent}
+            <div>${icon.label}</div>
+          </div>
+        `;
+      }).join("");
 
       desktopWorkspace.querySelectorAll(".desktop-icon").forEach((iconEl) => {
         const appName = iconEl.dataset.app;
@@ -545,10 +569,18 @@
 
     function applyWallpaper(value) {
       const active = wallpaperPresets[value] || wallpaperPresets["aero-blue"];
-      mainScreen.style.background = active;
-      mainScreen.style.backgroundSize = "cover";
-      mainScreen.style.backgroundPosition = "center";
-      mainScreen.style.backgroundRepeat = "no-repeat";
+      if (typeof active === "string" && active.startsWith("url('")) {
+        mainScreen.style.backgroundImage = active;
+        mainScreen.style.backgroundSize = "cover";
+        mainScreen.style.backgroundPosition = "center";
+        mainScreen.style.backgroundRepeat = "no-repeat";
+        mainScreen.style.backgroundColor = "#dfeeff";
+      } else {
+        mainScreen.style.background = active;
+        mainScreen.style.backgroundSize = "cover";
+        mainScreen.style.backgroundPosition = "center";
+        mainScreen.style.backgroundRepeat = "no-repeat";
+      }
     }
 
     function getEraIndex() {
@@ -716,22 +748,36 @@
       `;
     }
 
+    let appOpenTimer = null;
+
     function openApp(title, content) {
-      appTitleBar.textContent = title + " - Application";
-      if (title === "Internet") renderInternetApp();
-      else if (title === "File Explorer") renderFileExplorerApp();
-      else if (title === "Calendar") renderCalendarApp();
-      else if (title === "Media Player") renderMediaPlayerApp();
-      else if (title === "Trivia.exe") renderTriviaApp();
-      else {
-        appContent.innerHTML = `<div class="article-grid"><div class="article-card"><div class="article-meta">Project brief</div><h3>${title}</h3><p>${content}</p></div></div>`;
-      }
-      if (title === "Internet") {
-        renderBrowserTab("overview");
-      }
-      appWindow.style.display = "block";
+      clearTimeout(appOpenTimer);
+      document.body.classList.add("cursor-busy");
+      appWindow.style.display = "none";
+
+      const loadDelay = 1000 + Math.random() * 2000;
+      appOpenTimer = setTimeout(() => {
+        appTitleBar.textContent = title + " - Application";
+        if (title === "Internet") renderInternetApp();
+        else if (title === "File Explorer") renderFileExplorerApp();
+        else if (title === "Calendar") renderCalendarApp();
+        else if (title === "Media Player") renderMediaPlayerApp();
+        else if (title === "Trivia.exe") renderTriviaApp();
+        else {
+          appContent.innerHTML = `<div class="article-grid"><div class="article-card"><div class="article-meta">Project brief</div><h3>${title}</h3><p>${content}</p></div></div>`;
+        }
+        if (title === "Internet") {
+          renderBrowserTab("overview");
+        }
+        appWindow.style.display = "block";
+        document.body.classList.remove("cursor-busy");
+      }, loadDelay);
     }
-    function closeApp() { appWindow.style.display = "none"; }
+    function closeApp() {
+      clearTimeout(appOpenTimer);
+      document.body.classList.remove("cursor-busy");
+      appWindow.style.display = "none";
+    }
 
     function updateDashboard() {
       const currentEra = eraSelect.value;
@@ -746,8 +792,8 @@
       setTaskbarForCurrentEra();
 
       if (currentEra === "2000s") {
-        wallpaperSelect.value = "aero-blue";
-        applyWallpaper("aero-blue");
+        wallpaperSelect.value = "aeroglobe";
+        applyWallpaper("aeroglobe");
       }
 
       updateEraCompass();
@@ -822,6 +868,13 @@
     textColorSelect.addEventListener("change", applyTextColor);
     displaySelect.addEventListener("change", applyFilter);
     curveSlider.addEventListener("input", applyCurve);
+
+    document.addEventListener("pointerdown", () => {
+      document.body.classList.add("is-selecting");
+    });
+    document.addEventListener("pointerup", () => {
+      document.body.classList.remove("is-selecting");
+    });
 
     renderDesktopIcons();
     updateDashboard();

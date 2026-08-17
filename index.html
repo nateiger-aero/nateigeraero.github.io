@@ -406,9 +406,9 @@
         <!-- DYNAMIC TASKBAR CONTAINER -->
         <div id="desktop-taskbar"></div>
 
-        <button id="settings-toggle" class="settings-toggle" aria-controls="control-deck" aria-expanded="false" aria-label="Open settings">⚙</button>
-        <div id="control-deck" aria-label="System settings">
-          <h2>SETTINGS</h2>
+        <button id="settings-toggle" type="button" class="settings-toggle" aria-controls="control-deck" aria-expanded="false" aria-label="Open settings">⚙</button>
+        <div id="control-deck" role="dialog" aria-labelledby="settings-heading" aria-label="System settings">
+          <h2 id="settings-heading">SETTINGS</h2>
 
           <select id="era-select" style="display:none;">
             <option value="70s">70s Terminal</option>
@@ -419,17 +419,17 @@
           </select>
 
           <div class="control-group">
-            <label>Design (Subflavors)</label>
+            <label for="flavor-select">Design (Subflavors)</label>
             <select id="flavor-select"></select>
           </div>
           
           <div class="control-group">
-            <label>UI Palette</label>
+            <label for="palette-select">UI Palette</label>
             <select id="palette-select"></select>
           </div>
 
           <div class="control-group">
-            <label>Desktop Wallpaper</label>
+            <label for="wallpaper-select">Desktop Wallpaper</label>
             <select id="wallpaper-select">
               <option value="aero-blue">Aero Blue</option>
               <option value="aurora">Aurora</option>
@@ -440,17 +440,17 @@
           </div>
 
           <div class="control-group">
-            <label>Text Style</label>
+            <label for="text-color-select">Text Style</label>
             <select id="text-color-select"></select>
           </div>
 
           <div class="control-group">
-            <label>Choose Your Monitor</label>
+            <label for="display-select">Choose Your Monitor</label>
             <select id="display-select"></select>
           </div>
 
           <div class="control-group">
-            <label>To Bend or Not To Bend</label>
+            <label for="curve-slider">To Bend or Not To Bend</label>
             <input type="range" id="curve-slider" min="0" max="2" value="0">
           </div>
         </div>

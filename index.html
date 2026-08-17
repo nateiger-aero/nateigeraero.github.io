@@ -13,6 +13,9 @@
       --custom-border-color: transparent;
       --custom-bg-tint: rgba(255, 255, 255, 0.85);
       --icon-filter: none;
+      --desktop-accent: #7bb5ff;
+      --desktop-accent-soft: rgba(123, 181, 255, 0.18);
+      --desktop-panel-soft: rgba(18, 26, 35, 0.8);
     }
     
     body {
@@ -65,6 +68,7 @@
     
     #settings-shell {
       position: absolute; right: 12px; bottom: 82px; z-index: 140; display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
+      width: min(560px, calc(100% - 24px));
     }
     #settings-toggle {
       width: 42px; height: 42px; border: 1px solid rgba(255,255,255,0.5); border-radius: 50%;
@@ -76,7 +80,7 @@
     #settings-toggle:hover { transform: translateY(-1px) scale(1.03); box-shadow: 0 10px 24px rgba(0,0,0,0.38); }
     #settings-toggle:active { transform: translateY(1px) scale(0.98); }
     #control-deck {
-      position: absolute; right: 0; bottom: 52px; width: min(560px, calc(100vw - 90px)); background: rgba(14, 20, 28, 0.92); color: #39ff14;
+      position: absolute; right: 0; bottom: 52px; width: 100%; max-width: 560px; background: rgba(14, 20, 28, 0.92); color: #39ff14;
       border: 1px solid rgba(255,255,255,0.2); border-radius: 14px; font-family: monospace;
       box-shadow: 0 18px 34px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.08); overflow: hidden;
       opacity: 0; visibility: hidden; transform: translateY(14px) scale(0.96); transition: all 0.2s ease;
@@ -193,8 +197,54 @@
       background: rgba(255,255,255,0.14);
       box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
     }
+    .persona3-desktop {
+      background:
+        linear-gradient(180deg, rgba(10,12,18,0.18), rgba(24,25,32,0.08) 25%, rgba(17,21,28,0.2) 100%),
+        linear-gradient(135deg, #0e1016 0%, #171b24 20%, #2f313d 45%, #111720 100%);
+      color: #f6f7fb;
+    }
+    .persona3-desktop::before {
+      content: "";
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(130deg, rgba(255,255,255,0.18), transparent 24%, transparent 58%, rgba(255,255,255,0.08) 100%),
+        radial-gradient(circle at 20% 30%, rgba(239, 69, 86, 0.25), transparent 18%),
+        radial-gradient(circle at 80% 70%, rgba(44, 93, 170, 0.24), transparent 12%);
+      pointer-events: none;
+    }
+    .persona3-desktop .desktop-icon {
+      background: rgba(18,20,30,0.22);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
+      color: #f2f5ff;
+      text-shadow: 0 0 8px rgba(255,255,255,0.2);
+    }
+    .persona3-desktop .desktop-icon:hover {
+      background: rgba(255,255,255,0.08);
+      box-shadow: 0 0 0 1px rgba(255, 92, 114, 0.4), inset 0 0 0 1px rgba(255,255,255,0.08);
+    }
+    .persona3-desktop .taskbar-persona3 {
+      background: linear-gradient(180deg, rgba(19,22,29,0.9), rgba(5,7,11,0.95));
+      border-top: 1px solid rgba(255,255,255,0.12);
+      color: #eef4ff;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 10px;
+      padding: 0 14px;
+      gap: 14px;
+    }
+    .persona3-desktop .persona3-tag {
+      border: 1px solid rgba(255,255,255,0.18); border-radius: 999px; padding: 4px 10px; background: rgba(255,255,255,0.04);
+      font-weight: 700; color: #ffb0bf;
+    }
+    .persona3-desktop .persona3-clock {
+      margin-left: auto; color: #dfe7fa; font-weight: 700;
+    }
 
     /* AUTHENTIC TASKBARS / DOCKS */
+    #desktop-taskbar {
+      position: absolute; left: 0; right: 0; bottom: 0; z-index: 80; pointer-events: none;
+    }
     .taskbar { height: 35px; width: 100%; display: flex; align-items: center; padding: 0 5px; box-sizing: border-box; z-index: 50; font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 12px; flex-shrink: 0; }
     .taskbar-xp { background: linear-gradient(to bottom, #1f2f86 0%, #1738c7 50%, #102594 100%); border-top: 1px solid #6085ff; color: white; }
     .start-btn-xp { background: linear-gradient(to bottom, #3c893c 0%, #2e732e 50%, #1f571f 100%); border: 1px solid #44b544; border-radius: 4px; padding: 2px 12px; color: white; font-weight: bold; font-style: italic; cursor: pointer; display: flex; align-items: center; gap: 5px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.4); }
@@ -483,11 +533,10 @@
             <div class="settings-window">
               <div class="settings-sidebar">
                 <div class="settings-title">System</div>
-                <button class="settings-nav active" data-section="theme" type="button">Theme</button>
+                <button class="settings-nav active" data-section="theme" type="button">System Flavor</button>
                 <button class="settings-nav" data-section="wallpaper" type="button">Wallpaper</button>
                 <button class="settings-nav" data-section="text" type="button">Text</button>
                 <button class="settings-nav" data-section="display" type="button">Display</button>
-                <button class="settings-nav" data-section="monitor" type="button">Monitor</button>
               </div>
 
               <div class="settings-main">
@@ -566,28 +615,39 @@
         displays: ["CRT Flat-Screen", "Standard LCD"], curvesAllowed: true, bezelClass: "monitor-bezel bezel-2000s",
         wallpaper: "linear-gradient(135deg, #80d0ff 0%, #4d9eea 25%, #1d67b8 58%, #0f2a52 100%)", 
         flavors: [
+          {
+            name: "Persona 3 Reload / Dusk",
+            css: "https://cdn.jsdelivr.net/npm/7.css/dist/7.css",
+            taskbar: `<div class="taskbar taskbar-persona3"><div class="persona3-tag">SEES</div><div class="persona3-clock">${new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</div></div>`,
+            wall: "linear-gradient(135deg, #0e1016 0%, #171b24 20%, #2f313d 45%, #111720 100%)",
+            themeClass: "persona3-desktop"
+          },
           { 
             name: "Windows Vista / 7", 
             css: "https://cdn.jsdelivr.net/npm/7.css/dist/7.css",
-            taskbar: `<div class="taskbar taskbar-aero"><button class="start-btn-aero" onclick="openApp('System', 'Windows Aero Desktop active.')" aria-label="Start"></button><div class="aero-caption">Project Archive</div><div class="aero-caption">Essays</div><div class="aero-status">9:41 AM</div></div>`,
-            wall: "linear-gradient(135deg, #80d0ff 0%, #4d9eea 25%, #1d67b8 58%, #0f2a52 100%)"
+            taskbar: `<div class="taskbar taskbar-aero"><button class="start-btn-aero" onclick="openApp('System', 'Windows Aero Desktop active.')" aria-label="Start"></button><div class="aero-caption">Project Archive</div><div class="aero-caption">Essays</div><div class="aero-status">${new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</div></div>`,
+            wall: "linear-gradient(135deg, #80d0ff 0%, #4d9eea 25%, #1d67b8 58%, #0f2a52 100%)",
+            themeClass: "aero-desktop"
           },
           { 
             name: "Windows XP", 
             css: "https://cdn.jsdelivr.net/npm/xp.css@0.2.2/dist/XP.css",
             taskbar: `<div class="taskbar taskbar-xp"><button class="start-btn-xp" onclick="openApp('System', 'Windows XP Professional active.')">start</button><div style="margin-left:15px; border-left:1px solid #102594; height:25px;"></div><div style="background:#3c893c; padding:3px 15px; border-radius:3px; margin-left:10px; border:1px solid #44b544;">Project Archive</div></div>`,
-            wall: "linear-gradient(to bottom, #3a6ea5 0%, #2055aa 50%, #103366 100%)" // Bliss blue sky fallback
+            wall: "linear-gradient(to bottom, #3a6ea5 0%, #2055aa 50%, #103366 100%)",
+            themeClass: "aero-desktop"
           },
           { 
             name: "Mac OS X Tiger", 
             css: "https://cdn.jsdelivr.net/npm/7.css/dist/7.css", 
             taskbar: `<div class="dock-osx"><div class="dock-icon" onclick="openApp('Internet', 'Safari Browser - Project Research')" title="Internet">🌐</div><div class="dock-icon" onclick="openApp('File Explorer', 'Finder - Presentations')" title="Files">📁</div><div class="dock-icon" onclick="openApp('Calendar', 'iCal - Timelines')" title="Calendar">📅</div><div class="dock-icon" onclick="openApp('Media Player', 'QuickTime - Video Links')" title="Media">🎵</div><div class="dock-icon" onclick="openApp('Trivia.exe', 'Interactive Mini-game')" title="Trivia">🕹️</div></div>`,
-            wall: "radial-gradient(circle, #29487d 0%, #192b4d 100%)" // Aqua/Tiger deep space blue fallback
+            wall: "radial-gradient(circle, #29487d 0%, #192b4d 100%)",
+            themeClass: "aero-desktop"
           }
         ],
         palettes: [
-          { name: "Aero Glass (Blue)", border: "transparent", bg: "transparent" },
-          { name: "Royale (Green Tint)", border: "#228b22", bg: "rgba(34,139,34,0.1)" }
+          { name: "Aero Glass (Blue)", border: "transparent", bg: "transparent", accent: "#7bb5ff", accentSoft: "rgba(123, 181, 255, 0.2)", panelSoft: "rgba(18, 26, 35, 0.8)" },
+          { name: "Royale (Green Tint)", border: "#228b22", bg: "rgba(34,139,34,0.1)", accent: "#7fe39a", accentSoft: "rgba(127, 227, 154, 0.2)", panelSoft: "rgba(15, 28, 23, 0.8)" },
+          { name: "Persona 3 Reload", border: "#ff7d91", bg: "rgba(255,127,145,0.08)", accent: "#ff5d7a", accentSoft: "rgba(255, 93, 122, 0.2)", panelSoft: "rgba(24, 18, 21, 0.86)" }
         ],
         textColors: [
           { name: "Default Black", hex: "#000000" },
@@ -642,8 +702,15 @@
       const themeOptions = era.flavors.map((flavor, index) => ({
         value: index,
         label: flavor.name,
-        description: `${eraSelect.value.toUpperCase()} themed interface`
+        description: `${eraSelect.value.toUpperCase()} system flavor`
       }));
+
+      const fontOptions = [
+        { value: 'Segoe UI, Tahoma, sans-serif', label: 'Segoe UI' },
+        { value: 'Georgia, serif', label: 'Georgia' },
+        { value: 'Trebuchet MS, sans-serif', label: 'Trebuchet' },
+        { value: 'Courier New, monospace', label: 'Courier' }
+      ];
 
       const textOptions = era.textColors.map((color) => ({
         value: color.hex,
@@ -666,7 +733,7 @@
       if (sectionName === 'theme') {
         settingsContent.innerHTML = `
           <div class="settings-section">
-            <label>Design language</label>
+            <label>System flavor</label>
             <div class="settings-option-grid">
               ${themeOptions.map(option => `
                 <button type="button" class="settings-card ${Number(flavorSelect.value) === option.value ? 'selected' : ''}" data-select="flavor" data-value="${option.value}">
@@ -704,9 +771,27 @@
           </div>
         `;
       } else if (sectionName === 'text') {
+        const currentFont = getComputedStyle(document.body).fontFamily || 'Segoe UI, Tahoma, sans-serif';
+        const currentSize = Number.parseInt(getComputedStyle(document.body).fontSize || '12', 10) || 12;
+
         settingsContent.innerHTML = `
           <div class="settings-section">
-            <label>Text color</label>
+            <label>Font</label>
+            <div class="settings-option-grid">
+              ${fontOptions.map(option => `
+                <button type="button" class="settings-card ${currentFont.includes(option.label) || currentFont.includes(option.value.split(',')[0].trim()) ? 'selected' : ''}" data-select="font" data-value="${option.value}">
+                  <strong style="font-family:${option.value};">${option.label}</strong>
+                  <small>System text style</small>
+                </button>
+              `).join('')}
+            </div>
+          </div>
+          <div class="settings-section">
+            <label>Size</label>
+            <input type="range" class="settings-range" id="settings-font-size" min="10" max="18" value="${currentSize}">
+          </div>
+          <div class="settings-section">
+            <label>Color</label>
             <div class="settings-option-grid">
               ${textOptions.map(option => `
                 <button type="button" class="settings-card ${textColorSelect.value === option.value ? 'selected' : ''}" data-select="text" data-value="${option.value}">
@@ -718,6 +803,15 @@
             </div>
           </div>
         `;
+
+        const settingsFontSize = document.getElementById('settings-font-size');
+        if (settingsFontSize) {
+          settingsFontSize.addEventListener('input', (event) => {
+            const newSize = Number.parseInt(event.target.value, 10);
+            mainScreen.style.fontSize = `${newSize}px`;
+            document.body.style.fontSize = `${newSize}px`;
+          });
+        }
       } else if (sectionName === 'display') {
         settingsContent.innerHTML = `
           <div class="settings-section">
@@ -781,14 +875,14 @@
             textColorSelect.value = value;
             applyTextColor();
             renderSettingsContent('text');
+          } else if (selectName === 'font') {
+            document.body.style.fontFamily = value;
+            mainScreen.style.fontFamily = value;
+            renderSettingsContent('text');
           } else if (selectName === 'display') {
             displaySelect.value = value;
             applyFilter();
             renderSettingsContent('display');
-          } else if (selectName === 'era') {
-            eraSelect.value = value;
-            updateDashboard();
-            renderSettingsContent('monitor');
           }
         });
       });
@@ -939,6 +1033,17 @@
       }
     }
 
+    function getLiveTimeLabel() {
+      return new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+    }
+
+    function updateTaskbarClock() {
+      const taskbar = desktopTaskbar.querySelector('.persona3-clock, .aero-status');
+      if (taskbar) {
+        taskbar.textContent = getLiveTimeLabel();
+      }
+    }
+
     function setTaskbarForCurrentEra() {
       const currentEra = eraSelect.value;
       const rules = eraData[currentEra];
@@ -951,6 +1056,7 @@
           desktopTaskbar.innerHTML = flavor.taskbar;
         }
       }
+      updateTaskbarClock();
     }
 
     function renderInternetApp() {
@@ -1202,8 +1308,11 @@
       const rules = eraData[currentEra];
       
       physicalMonitor.className = rules.bezelClass;
-      mainScreen.classList.toggle("aero-desktop", currentEra === "2000s");
-      mainScreen.style.background = rules.wallpaper;
+      const selectedFlavor = rules.flavors[flavorSelect.value] || rules.flavors[0];
+      const themeClassName = selectedFlavor && selectedFlavor.themeClass ? selectedFlavor.themeClass : (currentEra === '2000s' ? 'aero-desktop' : '');
+      mainScreen.classList.toggle('persona3-desktop', themeClassName === 'persona3-desktop');
+      mainScreen.classList.toggle('aero-desktop', themeClassName === 'aero-desktop');
+      mainScreen.style.background = selectedFlavor && selectedFlavor.wall ? selectedFlavor.wall : rules.wallpaper;
       mainScreen.style.backgroundSize = "cover";
       mainScreen.style.backgroundPosition = "center";
       
@@ -1256,6 +1365,13 @@
       const palette = eraData[eraSelect.value].palettes[paletteSelect.value];
       rootStyles.setProperty('--custom-border-color', palette.border);
       rootStyles.setProperty('--custom-bg-tint', palette.bg);
+      rootStyles.setProperty('--desktop-accent', palette.accent || '#7bb5ff');
+      rootStyles.setProperty('--desktop-accent-soft', palette.accentSoft || 'rgba(123, 181, 255, 0.18)');
+      rootStyles.setProperty('--desktop-panel-soft', palette.panelSoft || 'rgba(18, 26, 35, 0.8)');
+      const selectedFlavor = eraData[eraSelect.value].flavors[flavorSelect.value];
+      const themeClassName = selectedFlavor && selectedFlavor.themeClass ? selectedFlavor.themeClass : 'aero-desktop';
+      mainScreen.classList.toggle('persona3-desktop', themeClassName === 'persona3-desktop');
+      mainScreen.classList.toggle('aero-desktop', themeClassName === 'aero-desktop');
     }
 
     function applyTextColor() {
@@ -1291,6 +1407,8 @@
 
     setCursorState('default');
     attachCursorBehavior();
+
+    setInterval(updateTaskbarClock, 30000);
 
     renderDesktopIcons();
     renderSettingsContent('theme');

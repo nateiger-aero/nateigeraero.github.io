@@ -63,11 +63,35 @@
     
     .screen { background-size: cover; background-position: center; width: 100%; height: 100%; position: relative; overflow: hidden; border: 2px solid #000; display: flex; flex-direction: column; transition: all 0.3s ease; }
     
-    #control-deck { width: 320px; background-color: #111; color: #39ff14; border-left: 2px solid #222; padding: 20px; font-family: monospace; overflow-y: auto; box-shadow: -5px 0 15px rgba(0,0,0,0.8); }
-    #control-deck h2 { text-align: center; border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 0; }
+    .settings-toggle {
+      position: absolute; right: 14px; bottom: 10px; z-index: 140;
+      width: 38px; height: 38px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.6);
+      background: radial-gradient(circle at 30% 30%, rgba(180,220,255,0.95), rgba(35,92,158,0.95) 60%, rgba(16,36,72,0.95) 100%);
+      color: #ffffff; font-size: 18px; line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 10px rgba(78,165,255,0.6), inset 0 1px 0 rgba(255,255,255,0.45);
+      cursor: pointer;
+    }
+    #control-deck {
+      position: absolute; right: 14px; bottom: 56px; z-index: 145;
+      width: min(320px, calc(100% - 28px)); max-height: calc(100% - 84px);
+      background: linear-gradient(to bottom, rgba(15,23,36,0.96), rgba(9,15,26,0.96));
+      color: #d7eeff; border: 1px solid rgba(132,181,236,0.75); border-radius: 10px;
+      padding: 16px; font-family: monospace; overflow-y: auto;
+      box-shadow: 0 14px 24px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.18);
+      display: none;
+    }
+    #control-deck.is-open { display: block; }
+    #control-deck h2 {
+      text-align: center; border-bottom: 1px solid rgba(132,181,236,0.45);
+      padding-bottom: 10px; margin-top: 0; margin-bottom: 14px; font-size: 16px; color: #f4fbff;
+    }
     .control-group { margin-bottom: 20px; }
     .control-group label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #fff; }
-    .control-group select, .control-group input[type="range"] { width: 100%; background: #222; color: #39ff14; border: 1px solid #444; padding: 8px; box-sizing: border-box; }
+    .control-group select, .control-group input[type="range"] {
+      width: 100%; background: #17263b; color: #d7eeff; border: 1px solid #44658f; padding: 8px; box-sizing: border-box;
+    }
     
     /* WORKSPACE & ICONS GRID */
     #desktop-workspace {
@@ -382,6 +406,55 @@
         <!-- DYNAMIC TASKBAR CONTAINER -->
         <div id="desktop-taskbar"></div>
 
+        <button id="settings-toggle" type="button" class="settings-toggle" aria-controls="control-deck" aria-expanded="false" aria-label="Open settings">⚙</button>
+        <div id="control-deck" role="dialog" aria-labelledby="settings-heading" aria-label="System settings">
+          <h2 id="settings-heading">SETTINGS</h2>
+
+          <select id="era-select" style="display:none;">
+            <option value="70s">70s Terminal</option>
+            <option value="80s">80s Analog GUI</option>
+            <option value="90s">90s Beige Box</option>
+            <option value="2000s" selected>2000s Y2K / Aero</option>
+            <option value="2010s">2010s Modern</option>
+          </select>
+
+          <div class="control-group">
+            <label for="flavor-select">Design (Subflavors)</label>
+            <select id="flavor-select"></select>
+          </div>
+          
+          <div class="control-group">
+            <label for="palette-select">UI Palette</label>
+            <select id="palette-select"></select>
+          </div>
+
+          <div class="control-group">
+            <label for="wallpaper-select">Desktop Wallpaper</label>
+            <select id="wallpaper-select">
+              <option value="aero-blue">Aero Blue</option>
+              <option value="aurora">Aurora</option>
+              <option value="glass-blue">Glass Blue</option>
+              <option value="forest-glow">Forest Glow</option>
+              <option value="aeroglobe">Aeroglobe</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label for="text-color-select">Text Style</label>
+            <select id="text-color-select"></select>
+          </div>
+
+          <div class="control-group">
+            <label for="display-select">Choose Your Monitor</label>
+            <select id="display-select"></select>
+          </div>
+
+          <div class="control-group">
+            <label for="curve-slider">To Bend or Not To Bend</label>
+            <input type="range" id="curve-slider" min="0" max="2" value="0">
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -389,54 +462,6 @@
 <div id="custom-cursor" aria-hidden="true">
       <img id="busy-cursor-frame" src="assets/ui/2000s/cursor/frutiger pack/working/FA_WorkingFRM1.png" alt="Working cursor frame" />
     </div>
-
-    <div id="control-deck">
-    <h2>SYSTEM CONFIG</h2>
-
-    <select id="era-select" style="display:none;">
-      <option value="70s">70s Terminal</option>
-      <option value="80s">80s Analog GUI</option>
-      <option value="90s">90s Beige Box</option>
-      <option value="2000s" selected>2000s Y2K / Aero</option>
-      <option value="2010s">2010s Modern</option>
-    </select>
-
-    <div class="control-group">
-      <label>Design (Subflavors)</label>
-      <select id="flavor-select"></select>
-    </div>
-    
-    <div class="control-group">
-      <label>UI Palette</label>
-      <select id="palette-select"></select>
-    </div>
-
-    <div class="control-group">
-      <label>Desktop Wallpaper</label>
-      <select id="wallpaper-select">
-        <option value="aero-blue">Aero Blue</option>
-        <option value="aurora">Aurora</option>
-        <option value="glass-blue">Glass Blue</option>
-        <option value="forest-glow">Forest Glow</option>
-        <option value="aeroglobe">Aeroglobe</option>
-      </select>
-    </div>
-
-    <div class="control-group">
-      <label>Text Style</label>
-      <select id="text-color-select"></select>
-    </div>
-
-    <div class="control-group">
-      <label>Choose Your Monitor</label>
-      <select id="display-select"></select>
-    </div>
-
-    <div class="control-group">
-      <label>To Bend or Not To Bend</label>
-      <input type="range" id="curve-slider" min="0" max="2" value="0">
-    </div>
-  </div>
 
   <script>
     const eraData = {
@@ -539,6 +564,8 @@
     const appTitleBar = document.getElementById("app-title-bar");
     const appContent = document.getElementById("app-content");
     const desktopWorkspace = document.getElementById("desktop-workspace");
+    const settingsToggle = document.getElementById("settings-toggle");
+    const controlDeck = document.getElementById("control-deck");
     const rootStyles = document.documentElement.style;
 
     const eraNames = ["70s", "80s", "90s", "2000s", "2010s"];
@@ -836,19 +863,19 @@
         if (document.body.dataset.cursor === 'busy') return;
 
         const target = event.target;
-        if (target.closest('.desktop-icon, button, .browser-tab, .taskbar button, .dock-icon, .wallpaper-button, .title-bar-controls button, .nav-arrows')) {
+        if (target.closest('.desktop-icon, button, select, input[type="range"], .browser-tab, .taskbar button, .dock-icon, .wallpaper-button, .title-bar-controls button, .nav-arrows')) {
           setCursorState('hover');
           return;
         }
 
-        if (target.closest('.app-window-body, .browser-content, .address-bar, .article-card, .sidebar-box, .window-body')) {
+        if (target.closest('.app-window-body, .browser-content, .address-bar, .article-card, .sidebar-box, .window-body, #control-deck')) {
           setCursorState('text');
         }
       });
 
       document.addEventListener('pointerout', (event) => {
         const target = event.target;
-        if (target.closest('.desktop-icon, button, .browser-tab, .taskbar button, .dock-icon, .wallpaper-button, .title-bar-controls button, .nav-arrows, .app-window-body, .browser-content, .address-bar, .article-card, .sidebar-box, .window-body')) {
+        if (target.closest('.desktop-icon, button, select, input[type="range"], .browser-tab, .taskbar button, .dock-icon, .wallpaper-button, .title-bar-controls button, .nav-arrows, .app-window-body, .browser-content, .address-bar, .article-card, .sidebar-box, .window-body, #control-deck')) {
           if (document.body.dataset.cursor !== 'busy' && document.body.dataset.cursor !== 'cross') {
             setCursorState('default');
           }
@@ -997,6 +1024,33 @@
     textColorSelect.addEventListener("change", applyTextColor);
     displaySelect.addEventListener("change", applyFilter);
     curveSlider.addEventListener("input", applyCurve);
+
+    function setSettingsOpen(isOpen) {
+      controlDeck.classList.toggle("is-open", isOpen);
+      settingsToggle.setAttribute("aria-expanded", String(isOpen));
+      settingsToggle.setAttribute("aria-label", isOpen ? "Close settings" : "Open settings");
+    }
+
+    settingsToggle.addEventListener("click", (event) => {
+      event.stopPropagation();
+      setSettingsOpen(!controlDeck.classList.contains("is-open"));
+    });
+
+    controlDeck.addEventListener("click", (event) => {
+      event.stopPropagation();
+    });
+
+    document.addEventListener("click", () => {
+      if (controlDeck.classList.contains("is-open")) {
+        setSettingsOpen(false);
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && controlDeck.classList.contains("is-open")) {
+        setSettingsOpen(false);
+      }
+    });
 
     setCursorState('default');
     attachCursorBehavior();

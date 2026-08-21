@@ -842,7 +842,7 @@
       const sortedIcons = [...desktopIconDefs].sort((a, b) => a.label.localeCompare(b.label));
       desktopWorkspace.innerHTML = sortedIcons.map((icon) => {
         const iconContent = icon.app === "WEB & FLOW Browser"
-          ? `<img src="assets/ui/2000s/icons/WEB&FLOW.png" alt="${icon.label}" style="width:48px;height:48px;object-fit:cover;border-radius:8px;display:block;margin-bottom:4px;box-shadow:0 2px 8px rgba(0,0,0,0.25);">`
+          ? `<img src="assets/ui/2000s/icons/WEB&FLOW.png" alt="${icon.label}" style="width:96px;height:96px;object-fit:cover;border-radius:8px;display:block;margin-bottom:4px;box-shadow:0 2px 8px rgba(0,0,0,0.25);">`
           : `<span aria-hidden="true">${icon.glyph}</span>`;
 
         return `

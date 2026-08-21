@@ -550,7 +550,7 @@
             name: "Andromedal Drift",
             description: "Etherial, weightless, as vast as the stars and as deep as the sea",
             css: "https://cdn.jsdelivr.net/npm/7.css/dist/7.css", 
-            taskbar: `<div class="dock-osx"><div class="dock-icon" onclick="openApp('Internet', 'Safari Browser - Project Research')" title="Internet">🌐</div><div class="dock-icon" onclick="openApp('File Explorer', 'Finder - Presentations')" title="Files">📁</div><div class="dock-icon" onclick="openApp('Calendar', 'iCal - Timelines')" title="Calendar">📅</div><div class="dock-icon" onclick="openApp('Media Player', 'QuickTime - Video Links')" title="Media">🎵</div><div class="dock-icon" onclick="openApp('Trivia.exe', 'Interactive Mini-game')" title="Trivia">🕹️</div></div>`,
+            taskbar: `<div class="dock-osx"><div class="dock-icon" onclick="openApp('WEB & FLOW Browser', 'Web archive - Project Research')" title="WEB & FLOW Browser">🌐</div><div class="dock-icon" onclick="openApp('File Explorer', 'Finder - Presentations')" title="Files">📁</div><div class="dock-icon" onclick="openApp('Calendar', 'iCal - Timelines')" title="Calendar">📅</div><div class="dock-icon" onclick="openApp('Media Player', 'QuickTime - Video Links')" title="Media">🎵</div><div class="dock-icon" onclick="openApp('Trivia.exe', 'Interactive Mini-game')" title="Trivia">🕹️</div></div>`,
             wall: "radial-gradient(circle, #29487d 0%, #192b4d 100%)",
             themeClass: "aero-desktop"
           }
@@ -825,7 +825,7 @@
     const desktopIconDefs = [
       { label: "Calendar", glyph: "📅", app: "Calendar", blurb: "Viewing the interactive timeline and historical milestones." },
       { label: "File Explorer", glyph: "📁", app: "File Explorer", blurb: "Browsing slide decks, papers, and project presentations." },
-      { label: "Internet", glyph: "🌐", app: "Internet", blurb: "Accessing core research directories and hardware evolution logs." },
+      { label: "WEB & FLOW Browser", glyph: "🌐", app: "WEB & FLOW Browser", blurb: "Accessing core research directories and hardware evolution logs." },
       { label: "Media Player", glyph: "🎵", app: "Media Player", blurb: "Playing linked video essays and audio assets." },
       { label: "Trivia.exe", glyph: "🕹️", app: "Trivia.exe", blurb: "Launching the interactive technology trivia challenge minigame." }
     ];
@@ -841,8 +841,8 @@
     function renderDesktopIcons() {
       const sortedIcons = [...desktopIconDefs].sort((a, b) => a.label.localeCompare(b.label));
       desktopWorkspace.innerHTML = sortedIcons.map((icon) => {
-        const iconContent = icon.app === "Internet"
-          ? `<img src="assets/ui/2000s/icons/internet2000.jpg" alt="${icon.label}" style="width:36px;height:36px;object-fit:cover;border-radius:8px;display:block;margin-bottom:4px;box-shadow:0 2px 8px rgba(0,0,0,0.25);">`
+        const iconContent = icon.app === "WEB & FLOW Browser"
+          ? `<img src="assets/ui/2000s/icons/WEB&FLOW.png" alt="${icon.label}" style="width:36px;height:36px;object-fit:cover;border-radius:8px;display:block;margin-bottom:4px;box-shadow:0 2px 8px rgba(0,0,0,0.25);">`
           : `<span aria-hidden="true">${icon.glyph}</span>`;
 
         return `
@@ -1143,7 +1143,7 @@
       const loadDelay = 1000 + (randomTenths * 100);
       appOpenTimer = setTimeout(() => {
         appTitleBar.textContent = title + " - Application";
-        if (title === "Internet") renderInternetApp();
+        if (title === "WEB & FLOW Browser") renderInternetApp();
         else if (title === "File Explorer") renderFileExplorerApp();
         else if (title === "Calendar") renderCalendarApp();
         else if (title === "Media Player") renderMediaPlayerApp();
@@ -1151,7 +1151,7 @@
         else {
           appContent.innerHTML = `<div class="article-grid"><div class="article-card"><div class="article-meta">Project brief</div><h3>${title}</h3><p>${content}</p></div></div>`;
         }
-        if (title === "Internet") {
+        if (title === "WEB & FLOW Browser") {
           renderBrowserTab("overview");
         }
         appWindow.style.display = "block";

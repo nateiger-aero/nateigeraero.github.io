@@ -145,33 +145,33 @@ const FileExplorer = ({ appId }: Record<string, string>) => {
                     <div className="flex absolute">
                         <div className="flex shrink-0">
                             <button className="flex items-center m-0.5" onClick={backClickHandler} disabled={isBackDisabled}>
-                                <img className="mr-2" src="/ui/icons/icon__back.png" width="20" height="20" />
+                                <img className="mr-2" src="/ui/icons/system/icon__back.png" width="20" height="20" />
                                 <h4>Back</h4>
                                 <span className="h-full"><span className={styles.dropdown}>▼</span></span>
                             </button>
                             <button className="flex items-center m-0.5" onClick={forwardClickHandler} disabled={isForwardDisabled}>
-                                <img src="/ui/icons/icon__forward.png" width="20" height="20" />
+                                <img src="/ui/icons/system/icon__forward.png" width="20" height="20" />
                                 <h4 className="hidden">Forward</h4>
                                 <span className="h-full"><span className={styles.dropdown}>▼</span></span>
                             </button>
                             <button className="flex items-center m-0.5 cursor-not-allowed">
-                                <img src="/ui/icons/icon__up.png" width="20" height="20" />
+                                <img src="/ui/icons/system/icon__up.png" width="20" height="20" />
                                 <h4 className="hidden">Up</h4>
                             </button>
                         </div>
                         <div className="flex shrink-0">
                             <button className="flex items-center m-0.5 cursor-not-allowed">
-                                <img className="mr-2" src="/ui/icons/icon__search--large.png" width="20" height="20" />
+                                <img className="mr-2" src="/ui/icons/system/icon__search--large.png" width="20" height="20" />
                                 <h4>Search</h4>
                             </button>
                             <button className="flex items-center m-0.5 cursor-not-allowed">
-                                <img className="mr-2" src="/ui/icons/icon__folders.png" width="20" height="20" />
+                                <img className="mr-2" src="/ui/icons/system/icon__folders.png" width="20" height="20" />
                                 <h4>Folders</h4>
                             </button>
                         </div>
                         <div className="flex shrink-0">
                             <button className="flex items-center m-0.5 cursor-not-allowed" data-label="views">
-                                <img src="/ui/icons/icon__views.png" width="20" height="20" />
+                                <img src="/ui/icons/system/icon__views.png" width="20" height="20" />
                                 <h4 className="hidden">Views</h4>
                                 <span className="h-full"><span className={styles.dropdown}>▼</span></span>
                             </button>
@@ -188,7 +188,7 @@ const FileExplorer = ({ appId }: Record<string, string>) => {
                             <button className={styles.dropDown}>Submit</button>
                         </div>
                         <button className={`${styles.goButton} flex items-center`} onClick={() => updateWindow()}>
-                            <img src="/ui/icons/icon__go.png" className="mr-1.5" width="19" height="19" />
+                            <img src="/ui/icons/system/icon__go.png" className="mr-1.5" width="19" height="19" />
                             <span>Go</span>
                         </button>
                     </div>
@@ -202,7 +202,7 @@ const FileExplorer = ({ appId }: Record<string, string>) => {
                                 <ul className="flex flex-col gap-2 p-3">
                                     <li>
                                         <button className="flex items-center" onClick={emptyRecycleBinHandler} disabled={!recycledItems.length && !recycledImages.length}>
-                                            <img src="/ui/icons/icon__recycle_bin.png" className="mr-2" width="12" height="12" />
+                                            <img src="/ui/icons/programs/icon__recycle_bin.png" className="mr-2" width="12" height="12" />
                                             <p>Empty the Recycle Bin</p>
                                         </button>
                                     </li>
@@ -212,15 +212,15 @@ const FileExplorer = ({ appId }: Record<string, string>) => {
                         <CollapseBox title="File & Folder Tasks">
                             <ul className="flex flex-col gap-2 p-3">
                                 <li className="flex items-center">
-                                        <img src="/ui/icons/icon__new_folder--large.png" className="mr-2" width="12" height="12" />
+                                        <img src="/ui/icons/system/icon__new_folder--large.png" className="mr-2" width="12" height="12" />
                                     <p>Make a new folder</p>
                                 </li>
                                 <li className="flex items-start">
-                                        <img src="/ui/icons/icon__publish_web--large.png" className="mr-2" width="12" height="12" />
+                                        <img src="/ui/icons/system/icon__publish_web--large.png" className="mr-2" width="12" height="12" />
                                     <p>Publish this folder to the web</p>
                                 </li>
                                 <li className="flex items-center">
-                                        <img src="/ui/icons/icon__file_explorer.png" className="mr-2" width="12" height="12" />
+                                        <img src="/ui/icons/system/icon__file_explorer.png" className="mr-2" width="12" height="12" />
                                     <p>Share this folder</p>
                                 </li>
                             </ul>
@@ -229,19 +229,19 @@ const FileExplorer = ({ appId }: Record<string, string>) => {
                             <ul className="flex flex-col gap-2 p-3">
                                 <li>
                                     <button className="flex items-center" onClick={() => updateWindow("desktop")}>
-                                        <img src="/ui/icons/icon__desktop--large.png" className="mr-2" width="12" height="12" />
+                                        <img src="/ui/icons/system/icon__desktop--large.png" className="mr-2" width="12" height="12" />
                                         <p>Desktop</p>
                                     </button>
                                 </li>
                                 <li>
                                     <button className="flex items-center" onClick={() => updateWindow("computer")}>
-                                        <img src="/ui/icons/icon__computer.png" className="mr-2" width="12" height="12" />
+                                        <img src="/ui/icons/system/icon__computer.png" className="mr-2" width="12" height="12" />
                                         <p>My Computer</p>
                                     </button>
                                 </li>
                                 <li>
                                     <button className="flex items-center" onClick={() => updateWindow("recycleBin")}>
-                                        <img src="/ui/icons/icon__recycle_bin.png" className="mr-2" width="12" height="12" />
+                                        <img src="/ui/icons/programs/icon__recycle_bin.png" className="mr-2" width="12" height="12" />
                                         <p>Recycle Bin</p>
                                     </button>
                                 </li>

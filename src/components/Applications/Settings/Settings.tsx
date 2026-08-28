@@ -104,7 +104,7 @@ const Setting = () => {
                                 <p>Background:</p>
                                 <div className="flex justify-between gap-3 mb-3">
                                     <ul className={`${styles.wallpaperList} w-4/5 p-1`}>
-                                        {wallpapersMap.map(([id, name], key) => (<li key={key} className="cursor-pointer flex my-0.5" data-selected={id === selectedWallpaper} onClick={() => onWallpaperSelect(id)}><img src="/ui/icons/icon__jpg_file.png" width="11" className="mr-1"/><span>{name}</span></li>))}
+                                        {wallpapersMap.map(([id, name], key) => (<li key={key} className="cursor-pointer flex my-0.5" data-selected={id === selectedWallpaper} onClick={() => onWallpaperSelect(id)}><img src="/ui/icons/system/icon__jpg_file.png" width="11" className="mr-1"/><span>{name}</span></li>))}
                                     </ul>
                                     <div className="flex flex-col gap-3 w-1/5">
                                         <Button disabled>Browse</Button>
@@ -130,7 +130,7 @@ const Setting = () => {
                     <section className="hidden" data-content-tab="screensaver">Screensaver</section>
                     <section className="hidden h-full" data-content-tab="appearance">
                         <div className="flex flex-col justify-between h-full">
-                            <img className="w-full h-56 object-contain object-top" src={`/assets/preview__theme--${selectedThemeColor}.png`}></img>
+                            <img className="w-full h-56 object-contain object-top" src={`/ui/windows/preview__theme--${selectedThemeColor}.png`}></img>
                             <div className="flex">
                                 <div className="w-3/5 flex flex-col gap-4">
                                     <div>
@@ -173,7 +173,7 @@ const Setting = () => {
                     <section className="hidden h-full" data-content-tab="settings">
                         <div className="flex flex-col justify-between h-full">
                             <div className={`${styles.wallpaperPreview} flex h-full`}>
-                                <img className="m-auto" src={`/ui/icons/spritesheet__zoom_range.png`} width="110" style={{objectPosition: (zoomValue === 11) ? "0%" : (zoomValue === 9) ? "100%" : "50%"}} />
+                                <img className="m-auto" src={`/ui/icons/system/spritesheet__zoom_range.png`} width="110" style={{objectPosition: (zoomValue === 11) ? "0%" : (zoomValue === 9) ? "100%" : "50%"}} />
                             </div>
                             <div>
                                 <div className="mt-4.5">
@@ -208,7 +208,7 @@ const Setting = () => {
                                             <span className={styles.dropDown}></span>
                                         </div>
                                         <div className="w-full relative mt-4">
-                                            <img className={`${styles.imageQualityPreview} object-cover h-[1.33rem] absolute m-0 w-full`} src={`/ui/icons/spritesheet__image_quality.png`} width="110" style={{objectPosition: (enableCRT) ? "0%" : "100%"}} />
+                                            <img className={`${styles.imageQualityPreview} object-cover h-[1.33rem] absolute m-0 w-full`} src={`/ui/icons/system/spritesheet__image_quality.png`} width="110" style={{objectPosition: (enableCRT) ? "0%" : "100%"}} />
                                         </div>
                                     </div>
                                 </div>

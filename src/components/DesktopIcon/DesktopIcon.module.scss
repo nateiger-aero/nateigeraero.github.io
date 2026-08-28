@@ -1,5 +1,5 @@
 .desktopIcon {
-    width: 6.5rem;
+    width: 16.25rem;
     margin: 0.5rem;
     position: absolute;
     display: flex;
@@ -9,11 +9,11 @@
     &[data-link="true"] {
         div:after {
             content: "";
-            width: 1.1rem;
-            height: 1.1rem;
-            background-image: url("/ui/icons/icon__shortcut.png?v=1");
+            width: 2.75rem;
+            height: 2.75rem;
+            background-image: url("/ui/icons/system/icon__shortcut.png?v=1");
             position: absolute;
-            left: 1.5rem;
+            left: 3.75rem;
             bottom: 100%;
             background-size: contain;
         }
@@ -23,8 +23,8 @@
         padding: 0 1rem;
         margin: 0.35rem auto;
         user-select: none;
-        height: 3rem;
-        width: 5rem;
+        height: 7.5rem;
+        width: 12.5rem;
         object-fit: contain;
     }
 
@@ -42,7 +42,7 @@
         &>span {
             background: #4069bf;
             mask-position: center;
-            mask-size: 3rem 3rem;
+            mask-size: 7.5rem 7.5rem;
             mask-repeat: no-repeat;
 
             @include theme-color("green") {

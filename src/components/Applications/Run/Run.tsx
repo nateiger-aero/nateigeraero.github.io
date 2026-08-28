@@ -63,7 +63,7 @@ const Run = () => {
         <form className={`${styles.run} py-5 px-4 h-full flex flex-col justify-between`} onSubmit={onSubmitHandler}>
             <div>
                 <div className="flex">
-                    <img className="mr-4" src="/ui/icons/icon__run--large.png" width="30" height="30" />
+                    <img className="mr-4" src="/ui/icons/system/icon__run--large.png" width="30" height="30" />
                     <p>Type the name of a program, folder, document, or Internet Resource, and Windows will open it for you.</p>
                 </div>
                 <div className="flex my-5">

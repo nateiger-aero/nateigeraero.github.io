@@ -94,7 +94,7 @@ const WindowMenu = ({ menuItems = [], menus, hasWindowsLogo = false, isMinified 
                         ))}
                     </ul>
                 </div>
-                {hasWindowsLogo && <img src="/ui/icons/icon__windows_logo.png" height="100%" width="40" />}
+                {hasWindowsLogo && <img src="/ui/icons/system/icon__windows_logo.png" height="100%" width="40" />}
             </section>
         );
     }
@@ -106,7 +106,7 @@ const WindowMenu = ({ menuItems = [], menus, hasWindowsLogo = false, isMinified 
                     {menuItems.map((item, index) => <li key={index} className="display-block my-1 px-2.5 py-1"><button>{item}</button></li>)}
                 </ul>
             </div>
-            {hasWindowsLogo && <img src="/ui/icons/icon__windows_logo.png" height="100%" width="40" />}
+            {hasWindowsLogo && <img src="/ui/icons/system/icon__windows_logo.png" height="100%" width="40" />}
         </section>
     );
 };

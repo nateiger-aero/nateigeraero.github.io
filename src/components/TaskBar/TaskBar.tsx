@@ -93,12 +93,12 @@ const TaskBar = () => {
                 <ul className="flex">
                     {isClippyMinimised && <li className="flex relative">
                         <button onClick={restoreClippyHandler} title="Clippy">
-                            <img src="/ui/icons/icon__clippy.png" width="14" height="14" className="cursor-pointer mr-2 min-w-[1.4rem]"></img>
+                            <img src="/ui/icons/programs/icon__clippy.png" width="14" height="14" className="cursor-pointer mr-2 min-w-[1.4rem]"></img>
                         </button>
                     </li>}
                     <li className=" flex relative">
                         <button onClick={systemTrayIconClickHandler}>
-                            <img src="/ui/icons/icon__info.png" width="14" height="14" className="cursor-pointer mr-2 min-w-[1.4rem]"></img>
+                            <img src="/ui/icons/system/icon__info.png" width="14" height="14" className="cursor-pointer mr-2 min-w-[1.4rem]"></img>
                         </button>
                         <Tooltip heading="Windows XP React Edition" content="Still a work in progress, but this is a semi-authentic recreation of Windows XP created using React & Typescript." systemTrayIconDismissed={systemTrayIconDismissed} setSystemTrayIconDismissed={setSystemTrayIconDismissed} />
                     </li>

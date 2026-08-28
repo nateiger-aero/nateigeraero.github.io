@@ -6,36 +6,36 @@
     --scrollbar-thumb-shadow-a: #bad1fc;
     --scrollbar-thumb-shadow-b: #b7caf5;
     --scrollbar-track-fallback: #f5f4ef;
-    --scrollbar-thumb-grip: url("/ui/icons/scrollbar__thumb.svg");
-    --scrollbar-thumb-grip-h: url("/ui/icons/scrollbar__thumb-horizontal.svg");
-    --scrollbar-arrow-up: url("/ui/icons/scrollbar__arrow-up.svg");
-    --scrollbar-arrow-down: url("/ui/icons/scrollbar__arrow-down.svg");
-    --scrollbar-arrow-left: url("/ui/icons/scrollbar__arrow-left.svg");
-    --scrollbar-arrow-right: url("/ui/icons/scrollbar__arrow-right.svg");
+    --scrollbar-thumb-grip: url("/assets/websites/scrollbar__thumb.svg");
+    --scrollbar-thumb-grip-h: url("/assets/websites/scrollbar__thumb-horizontal.svg");
+    --scrollbar-arrow-up: url("/assets/websites/scrollbar__arrow-up.svg");
+    --scrollbar-arrow-down: url("/assets/websites/scrollbar__arrow-down.svg");
+    --scrollbar-arrow-left: url("/assets/websites/scrollbar__arrow-left.svg");
+    --scrollbar-arrow-right: url("/assets/websites/scrollbar__arrow-right.svg");
 }
 
 body[data-theme="green"] {
     --scrollbar-thumb-bg: #e8eed5;
     --scrollbar-thumb-shadow-a: #e4eccb;
     --scrollbar-thumb-shadow-b: #dee6c6;
-    --scrollbar-thumb-grip: url("/ui/icons/scrollbar__thumb--green.svg");
-    --scrollbar-thumb-grip-h: url("/ui/icons/scrollbar__thumb-horizontal--green.svg");
-    --scrollbar-arrow-up: url("/ui/icons/scrollbar__arrow-up--green.svg");
-    --scrollbar-arrow-down: url("/ui/icons/scrollbar__arrow-down--green.svg");
-    --scrollbar-arrow-left: url("/ui/icons/scrollbar__arrow-left--green.svg");
-    --scrollbar-arrow-right: url("/ui/icons/scrollbar__arrow-right--green.svg");
+    --scrollbar-thumb-grip: url("/assets/websites/scrollbar__thumb--green.svg");
+    --scrollbar-thumb-grip-h: url("/assets/websites/scrollbar__thumb-horizontal--green.svg");
+    --scrollbar-arrow-up: url("/assets/websites/scrollbar__arrow-up--green.svg");
+    --scrollbar-arrow-down: url("/assets/websites/scrollbar__arrow-down--green.svg");
+    --scrollbar-arrow-left: url("/assets/websites/scrollbar__arrow-left--green.svg");
+    --scrollbar-arrow-right: url("/assets/websites/scrollbar__arrow-right--green.svg");
 }
 
 body[data-theme="silver"] {
     --scrollbar-thumb-bg: #dfe0e4;
     --scrollbar-thumb-shadow-a: #d8dade;
     --scrollbar-thumb-shadow-b: #d3d5d9;
-    --scrollbar-thumb-grip: url("/ui/icons/scrollbar__thumb--silver.svg");
-    --scrollbar-thumb-grip-h: url("/ui/icons/scrollbar__thumb-horizontal--silver.svg");
-    --scrollbar-arrow-up: url("/ui/icons/scrollbar__arrow-up--silver.svg");
-    --scrollbar-arrow-down: url("/ui/icons/scrollbar__arrow-down--silver.svg");
-    --scrollbar-arrow-left: url("/ui/icons/scrollbar__arrow-left--silver.svg");
-    --scrollbar-arrow-right: url("/ui/icons/scrollbar__arrow-right--silver.svg");
+    --scrollbar-thumb-grip: url("/assets/websites/scrollbar__thumb--silver.svg");
+    --scrollbar-thumb-grip-h: url("/assets/websites/scrollbar__thumb-horizontal--silver.svg");
+    --scrollbar-arrow-up: url("/assets/websites/scrollbar__arrow-up--silver.svg");
+    --scrollbar-arrow-down: url("/assets/websites/scrollbar__arrow-down--silver.svg");
+    --scrollbar-arrow-left: url("/assets/websites/scrollbar__arrow-left--silver.svg");
+    --scrollbar-arrow-right: url("/assets/websites/scrollbar__arrow-right--silver.svg");
 }
 
 ::-webkit-scrollbar {
@@ -48,14 +48,14 @@ body[data-theme="silver"] {
 }
 
 ::-webkit-scrollbar-track:vertical {
-    background-image: url("/ui/icons/scrollbar__track.svg");
+    background-image: url("/assets/websites/scrollbar__track.svg");
     background-repeat: repeat-y;
     background-size: 17px 1px;
     image-rendering: pixelated;
 }
 
 ::-webkit-scrollbar-track:horizontal {
-    background-image: url("/ui/icons/scrollbar__track-horizontal.svg");
+    background-image: url("/assets/websites/scrollbar__track-horizontal.svg");
     background-repeat: repeat-x;
     background-size: 1px 17px;
     image-rendering: pixelated;

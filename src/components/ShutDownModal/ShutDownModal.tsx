@@ -69,15 +69,15 @@ const ShutDownModal = ({ isLogout = true }: ShutDownModalProps) => {
                     {(!isLogout || windowsInitiationState !== "loggedIn") && (
                         <>
                             <button className="flex flex-col items-center justify-center font-bold" disabled>
-                                <img src="/ui/icons/icon__shut_down--large.png" className="mb-3" height="33" width="33" />
+                                <img src="/ui/icons/system/icon__shut_down--large.png" className="mb-3" height="33" width="33" />
                                 <p>Stand By</p>
                             </button>
                             <button className="flex flex-col items-center justify-center font-bold" onClick={() => shutDownHandler()}>
-                                <img src="/ui/icons/icon__shut_down--large.png" className="mb-3" height="33" width="33" />
+                                <img src="/ui/icons/system/icon__shut_down--large.png" className="mb-3" height="33" width="33" />
                                 <p>Shut Down</p>
                             </button>
                             <button className="flex flex-col items-center justify-center font-bold" onClick={() => shutDownHandler(true)}>
-                                <img src="/ui/icons/icon__restart--large.png" className="mb-3" height="33" width="33" />
+                                <img src="/ui/icons/system/icon__restart--large.png" className="mb-3" height="33" width="33" />
                                 <p>Restart</p>
                             </button>
                         </>
@@ -85,11 +85,11 @@ const ShutDownModal = ({ isLogout = true }: ShutDownModalProps) => {
                     {isLogout && windowsInitiationState === "loggedIn" && (
                         <>
                             <button className="flex flex-col items-center justify-center font-bold" onClick={() => logOutHandler(true)}>
-                                <img src="/ui/icons/icon__switch_users--large.png" className="mb-3" height="33" width="33" />
+                                <img src="/ui/icons/system/icon__switch_users--large.png" className="mb-3" height="33" width="33" />
                                 <p>Switch Users</p>
                             </button>
                             <button className="flex flex-col items-center justify-center font-bold" onClick={() => logOutHandler()}>
-                                <img src="/ui/icons/icon__log_out--large.png" className="mb-3" height="33" width="33" />
+                                <img src="/ui/icons/system/icon__log_out--large.png" className="mb-3" height="33" width="33" />
                                 <p>Log Off</p>
                             </button>
                         </>

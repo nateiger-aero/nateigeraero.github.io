@@ -1,15 +1,15 @@
 {
     "documents": {
         "title": "My Documents",
-        "icon": "/ui/icons/icon__documents.png",
-        "iconLarge": "/ui/icons/icon__documents--large.png",
+            "icon": "/ui/icons/system/icon__documents.png",
+            "iconLarge": "/ui/icons/system/icon__documents--large.png",
         "component": "FileExplorer",
         "height": 390
     },
     "internetExplorer": {
-        "title": "Internet Explorer",
-        "icon": "/ui/icons/icon__internet_explorer.png",
-        "iconLarge": "/ui/icons/icon__internet_explorer--large.png",
+        "title": "Web & Flow Internet Browser",
+            "icon": "/ui/icons/websites/WEB&FLOW.png",
+            "iconLarge": "/ui/icons/websites/WEB&FLOW.png",
         "component": "InternetExplorer",
         "height": 500,
         "width": 500
@@ -17,101 +17,101 @@
     "paint": {
         "title": "untitled - Paint",
         "name": "Paint",
-        "iconLarge": "/ui/icons/icon__paint--large.png",
+            "iconLarge": "/ui/icons/system/icon__paint--large.png",
         "component": "Paint",
         "height": 460,
         "width": 600
     },
     "outlook": {
         "title": "Microsoft Outlook",
-        "iconLarge": "/ui/icons/icon__outlook--large.png",
+            "iconLarge": "/ui/icons/system/icon__outlook--large.png",
         "content": "placeholder",
         "disabled": true
     },
     "recycleBin": {
         "title": "Recycle Bin",
-        "icon": "/ui/icons/icon__recycle_bin.png",
-        "iconLarge": "/ui/icons/icon__recycle_bin--large.png",
+            "icon": "/ui/icons/programs/icon__recycle_bin.png",
+            "iconLarge": "/ui/icons/programs/icon__recycle_bin--large.png",
         "component": "FileExplorer",
         "height": 390
     },
     "winMessenger": {
         "title": "Windows Messenger",
-        "iconLarge": "/ui/icons/icon__messenger--large.png",
+            "iconLarge": "/ui/icons/system/icon__messenger--large.png",
         "content": "placeholder",
         "disabled": true
     },
     "winMediaPlayer": {
         "title": "Windows Media Player",
-        "iconLarge": "/ui/icons/icon__media_player--large.png",
+            "iconLarge": "/ui/icons/system/icon__media_player--large.png",
         "content": "placeholder",
         "disabled": true
     },
     "msn": {
         "title": "MSN",
-        "iconLarge": "/ui/icons/icon__msn--large.png",
+            "iconLarge": "/ui/icons/websites/icon__msn--large.png",
         "content": "placeholder",
         "disabled": true
     },
     "recentDocuments": {
         "title": "My Recent Documents",
-        "iconLarge": "/ui/icons/icon__recent_documents--large.png",
+            "iconLarge": "/ui/icons/system/icon__recent_documents--large.png",
         "content": "placeholder"
     },
     "music": {
         "title": "My Music",
-        "icon": "/ui/icons/icon__music.png",
-        "iconLarge": "/ui/icons/icon__music--large.png",
+            "icon": "/ui/icons/system/icon__music.png",
+            "iconLarge": "/ui/icons/system/icon__music--large.png",
         "component": "FileExplorer",
         "height": 390
     },
     "pictures": {
         "title": "My Pictures",
-        "icon": "/ui/icons/icon__pictures.png",
-        "iconLarge": "/ui/icons/icon__pictures--large.png",
+            "icon": "/ui/icons/system/icon__pictures.png",
+            "iconLarge": "/ui/icons/system/icon__pictures--large.png",
         "component": "FileExplorer",
         "height": 390
     },
     "computer": {
         "title": "My Computer",
-        "icon": "/ui/icons/icon__computer.png",
-        "iconLarge": "/ui/icons/icon__computer--large.png",
+            "icon": "/ui/icons/system/icon__computer.png",
+            "iconLarge": "/ui/icons/system/icon__computer--large.png",
         "component": "FileExplorer",
         "height": 390
     },
     "controlPanel": {
         "title": "Control Panel",
-        "iconLarge": "/ui/icons/icon__control_panel--large.png",
+        "iconLarge": "/ui/icons/system/icon__control_panel--large.png",
         "content": "placeholder",
         "disabled": true
     },
     "programDefaults": {
         "title": "Set Program Access and Defaults",
-        "iconLarge": "/ui/icons/icon__default_programs--large.png",
+        "iconLarge": "/ui/icons/system/icon__default_programs--large.png",
         "content": "placeholder",
         "disabled": true
     },
     "printersFaxes": {
         "title": "Printers and Faxes",
-        "iconLarge": "/ui/icons/icon__printers_faxes--large.png",
+        "iconLarge": "/ui/icons/system/icon__printers_faxes--large.png",
         "content": "placeholder",
         "disabled": true
     },
     "support": {
         "title": "Help and Support",
-        "iconLarge": "/ui/icons/icon__support--large.png",
+        "iconLarge": "/ui/icons/system/icon__support--large.png",
         "content": "placeholder",
         "disabled": true
     },
     "search": {
         "title": "Search",
-        "iconLarge": "/ui/icons/icon__search--large.png",
+        "iconLarge": "/ui/icons/system/icon__search--large.png",
         "content": "placeholder",
         "disabled": true
     },
     "run": {
         "title": "Run...",
-        "iconLarge": "/ui/icons/icon__run--large.png",
+        "iconLarge": "/ui/icons/system/icon__run--large.png",
         "content": "placeholder",
         "component": "Run",
         "width": 300,
@@ -123,36 +123,36 @@
     },
     "winCatalog": {
         "title": "Windows Catalog",
-        "icon": "/ui/icons/icon__win_catalog.png",
+        "icon": "/ui/icons/system/icon__win_catalog.png",
         "content": "placeholder",
         "disabled": true
     },
     "winUpdate": {
         "title": "Windows Update",
-        "iconLarge": "/ui/icons/icon__win_update--large.png",
+        "iconLarge": "/ui/icons/system/icon__win_update--large.png",
         "content": "placeholder",
         "disabled": true
     },
     "remoteAssistance": {
         "title": "Remote Assistance",
-        "iconLarge": "/ui/icons/icon__remote_assistance--large.png",
+        "iconLarge": "/ui/icons/system/icon__remote_assistance--large.png",
         "content": "placeholder",
         "disabled": true
     },
     "winMovieMaker": {
         "title": "Windows Movie Maker",
-        "iconLarge": "/ui/icons/icon__movie_maker--large.png",
+        "iconLarge": "/ui/icons/system/icon__movie_maker--large.png",
         "content": "placeholder",
         "disabled": true
     },
     "accessories": {
         "title": "Accessories",
-        "icon": "/ui/icons/icon__directory.png",
+        "icon": "/ui/icons/system/icon__directory.png",
         "content": "placeholder"
     },
     "games": {
         "title": "Games",
-        "icon": "/ui/icons/icon__directory.png",
+        "icon": "/ui/icons/system/icon__directory.png",
         "content": "placeholder"
     },
     "startup": {
@@ -162,12 +162,12 @@
     },
     "gitHub": {
         "title": "GitHub",
-        "iconLarge": "/ui/icons/icon__github--large.png",
+        "iconLarge": "/ui/icons/websites/icon__github--large.png",
         "link": "https://github.com/Cyanoxide/react-xp"
     },
     "kofi": {
         "title": "Donate",
-        "iconLarge": "/ui/icons/icon__kofi--large.png",
+        "iconLarge": "/ui/icons/websites/icon__kofi--large.png",
         "link": "https://ko-fi.com/cyanoxide"
     },
     "over9000": {
@@ -197,7 +197,7 @@
     },
     "userDocuments": {
         "title": "User's Documents",
-        "iconLarge": "/ui/icons/icon__file_explorer--large.png",
+        "iconLarge": "/ui/icons/system/icon__file_explorer--large.png",
         "redirect": "documents"
     },
     "sharedDocuments": {
@@ -207,27 +207,27 @@
     },
     "localDisk": {
         "title": "Local Disk (:C)",
-        "iconLarge": "/ui/icons/icon__hdd--large.png",
+        "iconLarge": "/ui/icons/system/icon__hdd--large.png",
         "disabled": true
     },
     "desktop": {
         "title": "Desktop",
-        "iconLarge": "/ui/icons/icon__desktop--large.png",
+        "iconLarge": "/ui/icons/system/icon__desktop--large.png",
         "component": "FileExplorer",
         "height": 390
     },
     "notepad": {
         "title": "Notepad",
-        "iconLarge": "/ui/icons/icon__notepad--large.png",
+        "iconLarge": "/ui/icons/system/icon__notepad--large.png",
         "component": "Notepad",
         "height": 400,
         "width": 500
     },
     "readme": {
         "title": "ReadMe.txt",
-        "iconLarge": "/ui/icons/icon__notepad--large.png",
+        "iconLarge": "/ui/icons/system/icon__notepad--large.png",
         "component": "Notepad",
-        "content": "Welcome to my React XP project.\n\nI wanted to recreate Windows XP using React and Typescript.\nIt's still a work in progress. Many features are not yet implemented, but I plan to continue adding new features as I can.\n\nSo far, I've added the initial boot sequence, logout/shutdown functionality, File Explorer, Internet Explorer (with Wayback Machine), Notepad, Display Properties, the Run window, as well as core functionalities like movable desktop icons and windows.\n\nMost recently, I've added Solitaire, Clippy, and Paint.",
+        "content": "Welcome to my React XP project.\n\nI wanted to recreate Windows XP using React and Typescript.\nIt's still a work in progress. Many features are not yet implemented, but I plan to continue adding new features as I can.\n\nSo far, I've added the initial boot sequence, logout/shutdown functionality, File Explorer, Web & Flow Internet Browser (with Wayback Machine), Notepad, Display Properties, the Run window, as well as core functionalities like movable desktop icons and windows.\n\nMost recently, I've added Solitaire, Clippy, and Paint.",
         "height": 250,
         "width": 330,
         "top": 25,
@@ -235,7 +235,7 @@
     },
     "displayProperties": {
         "title": "Display Properties",
-        "iconLarge": "/ui/icons/icon_style_options--large.png",
+        "iconLarge": "/ui/icons/system/icon_style_options--large.png",
         "showOnTaskbar": false,
         "resizable": false,
         "component": "Settings",
@@ -244,7 +244,7 @@
     },
     "solitaire": {
         "title": "Solitaire",
-        "iconLarge": "/ui/icons/icon__solitaire--large.png",
+        "iconLarge": "/ui/icons/programs/icon__solitaire--large.png",
         "component": "Solitaire",
         "height": 400,
         "width": 500

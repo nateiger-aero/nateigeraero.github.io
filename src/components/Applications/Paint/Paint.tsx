@@ -360,7 +360,7 @@ const Paint = ({ id, content }: PaintProps) => {
             }
             setToolCursors(generated);
         };
-        img.src = "/ui/icons/spritemap__paint-tools.png";
+        img.src = "/ui/icons/programs/spritemap__paint-tools.png";
     }, []);
 
     // Switching away from a selection tool commits the floating selection (its

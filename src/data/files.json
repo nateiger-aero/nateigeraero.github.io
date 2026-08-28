@@ -10,28 +10,28 @@
         [
             "internetExplorer",
             {
-                "top": 70,
+                "top": 120,
                 "left": 5
             }
         ],
         [
             "gitHub",
             {
-                "top": 145,
+                "top": 235,
                 "left": 5
             }
         ],
         [
             "kofi",
             {
-                "top": 210,
+                "top": 350,
                 "left": 5
             }
         ],
         [
             "solitaire",
             {
-                "top": 275,
+                "top": 465,
                 "left": 5
             }
         ],
@@ -45,7 +45,7 @@
         [
             "readme",
             {
-                "bottom": 70,
+                "bottom": 140,
                 "right": 5
             }
         ]

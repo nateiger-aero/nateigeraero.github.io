@@ -120,49 +120,49 @@ const InternetExplorer = ({ appId }: Record<string, string>) => {
                     <div className="flex absolute">
                         <div className="flex shrink-0">
                             <button className="flex items-center m-0.5" onClick={backClickHandler} disabled={isBackDisabled}>
-                                <img className="mr-2" src="/ui/icons/icon__back.png" width="20" height="20" />
+                                <img className="mr-2" src="/ui/icons/system/icon__back.png" width="20" height="20" />
                                 <h4>Back</h4>
                                 <span className="h-full"><span className={styles.dropdown}>▼</span></span>
                             </button>
                             <button className="flex items-center m-0.5" onClick={forwardClickHandler} disabled={isForwardDisabled}>
-                                <img src="/ui/icons/icon__forward.png" width="20" height="20" />
+                                <img src="/ui/icons/system/icon__forward.png" width="20" height="20" />
                                 <h4 className="hidden">Forward</h4>
                                 <span className="h-full"><span className={styles.dropdown}>▼</span></span>
                             </button>
                             <button className="flex items-center m-0.5" onClick={stopClickHandler}>
-                                <img src="/ui/icons/icon__stop--large.png" width="20" height="20" />
+                                <img src="/ui/icons/system/icon__stop--large.png" width="20" height="20" />
                                 <h4 className="hidden">Stop</h4>
                             </button>
                             <button className="flex items-center m-0.5" onClick={refreshClickHandler}>
-                                <img src="/ui/icons/icon__refresh--large.png" width="20" height="20" />
+                                <img src="/ui/icons/system/icon__refresh--large.png" width="20" height="20" />
                                 <h4 className="hidden">Refresh</h4>
                             </button>
                             <button className="flex items-center m-0.5" onClick={homeClickHandler}>
-                                <img src="/ui/icons/icon__home--large.png" width="20" height="20" />
+                                <img src="/ui/icons/system/icon__home--large.png" width="20" height="20" />
                                 <h4 className="hidden">Home</h4>
                             </button>
                         </div>
                         <div className="flex shrink-0">
                             <button className="flex items-center m-0.5 cursor-not-allowed">
-                                <img className="mr-2" src="/ui/icons/icon__search--large.png" width="20" height="20" />
+                                <img className="mr-2" src="/ui/icons/system/icon__search--large.png" width="20" height="20" />
                                 <h4>Search</h4>
                             </button>
                             <button className="flex items-center m-0.5 cursor-not-allowed">
-                                <img className="mr-2" src="/ui/icons/icon__favourites--large.png" width="20" height="20" />
+                                <img className="mr-2" src="/ui/icons/system/icon__favourites--large.png" width="20" height="20" />
                                 <h4>Favourites</h4>
                             </button>
                             <button className="flex items-center m-0.5 cursor-not-allowed">
-                                <img className="mr-2" src="/ui/icons/icon__history--large.png" width="20" height="20" />
+                                <img className="mr-2" src="/ui/icons/system/icon__history--large.png" width="20" height="20" />
                                 <h4 className="hidden">History</h4>
                             </button>
                         </div>
                         <div className="flex shrink-0">
                             <button className="flex items-center m-0.5 cursor-not-allowed">
-                                <img className="mr-2" src="/ui/icons/icon__mail--large.png" width="20" height="20" />
+                                <img className="mr-2" src="/ui/icons/system/icon__mail--large.png" width="20" height="20" />
                                 <h4 className="hidden">Mail</h4>
                             </button>
                             <button className="flex items-center m-0.5 cursor-not-allowed">
-                                <img className="mr-2" src="/ui/icons/icon__print--large.png" width="20" height="20" />
+                                <img className="mr-2" src="/ui/icons/system/icon__print--large.png" width="20" height="20" />
                                 <h4 className="hidden">Print</h4>
                             </button>
                         </div>
@@ -178,7 +178,7 @@ const InternetExplorer = ({ appId }: Record<string, string>) => {
                             <button className={styles.dropDown}>Submit</button>
                         </div>
                         <button className={`${styles.goButton} flex items-center`} onClick={submitURLHandler}>
-                            <img src="/ui/icons/icon__go.png" className="mr-1.5" width="19" height="19" />
+                            <img src="/ui/icons/system/icon__go.png" className="mr-1.5" width="19" height="19" />
                             <span>Go</span>
                         </button>
                     </div>
@@ -193,7 +193,7 @@ const InternetExplorer = ({ appId }: Record<string, string>) => {
             </main >
             <div className={`${styles.statusBar} flex justify-between px-2 py-0.5`}>
                 <div className="flex items-center gap-1">
-                    <img src="/ui/icons/icon__internet_explorer.png" height="12" width="12" />
+                    <img src="/ui/icons/websites/WEB&FLOW.png" height="12" width="12" alt="" />
                     <p>Done</p>
                 </div>
                 <div className="flex">
@@ -203,7 +203,7 @@ const InternetExplorer = ({ appId }: Record<string, string>) => {
                         ))}
                     </div>
                     <div className="flex items-center gap-1 ml-3 w-44">
-                        <img src="/ui/icons/icon__globe.png" height="12" width="12" />
+                        <img src="/ui/icons/system/icon__globe.png" height="12" width="12" />
                         <p>Internet</p>
                     </div>
                 </div>

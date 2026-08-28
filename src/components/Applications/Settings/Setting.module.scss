@@ -120,7 +120,7 @@
         &:after {
             content: "";
             position: absolute;
-            background-image: url("/ui/icons/spritesheet__drop_down.png");
+            background-image: url("/ui/icons/system/spritesheet__drop_down.png");
             background-size: 2.8rem 1.6rem;
             background-repeat: no-repeat;
             background-position: left;
@@ -153,7 +153,7 @@
 
         .dropDown {
             text-indent: -999rem;
-            background-image: url("/ui/icons/spritesheet__drop_down.png");
+            background-image: url("/ui/icons/system/spritesheet__drop_down.png");
             width: 1.8rem;
             height: 100%;
             background-size: cover;

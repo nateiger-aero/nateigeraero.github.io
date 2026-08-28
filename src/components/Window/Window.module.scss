@@ -198,7 +198,7 @@
 
             &:after {
                 content: "";
-                background: url("/ui/icons/spritesheet__window_ui.png");
+                background: url("/ui/windows/spritesheet__window_ui.png");
                 background-size: 7rem 1.7rem;
                 position: absolute;
                 inset: 0;
@@ -227,10 +227,10 @@
             &[data-button="close"] {
                 box-shadow: inset 0 0 0 0.1rem #ae452744, inset 0.2rem 0.2rem 0.5rem #e4a491, inset -0.2rem -0.2rem 0.1rem #ae4527;
                 background-color: #d45b34;
-                background: url("/ui/icons/spritesheet__window_ui.png"), radial-gradient(circle at 85% 85%, #cd512e 50%, #d45b34 70%, #e4a491 100%);
+                background: url("/ui/windows/spritesheet__window_ui.png"), radial-gradient(circle at 85% 85%, #cd512e 50%, #d45b34 70%, #e4a491 100%);
 
                 &:after {
-                    background: url("/ui/icons/spritesheet__window_ui.png");
+                    background: url("/ui/windows/spritesheet__window_ui.png");
                     background-position-x: -5.35rem;
                     background-size: 7rem 1.7rem;
 

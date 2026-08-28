@@ -81,7 +81,7 @@ const Login = ({ user }: LoginProps) => {
                 {(windowsInitiationState === "transition") && (
                     <main className="flex h-6/7 px-8">
                         <div className={`${styles.transition} flex flex-col items-end relative`}>
-                            <img className="mb-6" src="/assets/logo__windows_xp.png" height="100" width="100" />
+                            <img className="mb-6" src="/ui/bios/logo__windows_xp.png" height="100" width="100" />
                             <h3 className="mr-8 absolute w-max -bottom-8">{transitionLabel}</h3>
                         </div>
                     </main>
@@ -92,7 +92,7 @@ const Login = ({ user }: LoginProps) => {
                         <div className={`${styles.details} flex flex-col justify-center items-end`}>
                             {(windowsInitiationState !== "loggingIn") && (
                                 <>
-                                    <img className="mb-6" src="/assets/logo__windows_xp.png" height="150" width="150" />
+                                    <img className="mb-6" src="/ui/bios/logo__windows_xp.png" height="150" width="150" />
                                     <h3 className="text-right">To begin, click your user name</h3>
                                 </>
                             )}
@@ -117,7 +117,7 @@ const Login = ({ user }: LoginProps) => {
                         {["login", "loggingIn"].includes(windowsInitiationState) && (
                             <>
                                 <button className={`${styles.shutDown} flex items-center mb-4`} onClick={() => onShutDownModalButtonHandler()}>
-                                    <img className="mr-3" width="22" height="22" src="/ui/icons/icon__shut_down--large.png" />
+                                    <img className="mr-3" width="22" height="22" src="/ui/icons/system/icon__shut_down--large.png" />
                                     <h3>Turn off Computer</h3>
                                 </button>
                                 <div className="max-w-90">

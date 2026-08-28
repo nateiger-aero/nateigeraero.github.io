@@ -66,7 +66,7 @@ const StartMenu = ({ startButton }: StartMenuProps) => {
                 <section className="bg-white text-[#373738] flex flex-col justify-between">
                     <div>
                         <ul className="flex flex-col p-3 gap-1.5">
-                            <li><StartMenuItem appId="internetExplorer" subTitle="Internet" /></li>
+                            <li><StartMenuItem appId="internetExplorer" subTitle="Web & Flow Internet Browser" /></li>
                             <li><StartMenuItem appId="outlook" subTitle="E-mail" /></li>
                         </ul>
                         <ul className="flex flex-col p-3 gap-1.5">
@@ -82,7 +82,7 @@ const StartMenu = ({ startButton }: StartMenuProps) => {
                         <div ref={allProgramsRef} className="p-2 relative">
                             <button className="flex items-center justify-center gap-2 p-1" onPointerOver={allProgramsHandler} data-open={isAllProgramsOpen}>
                                 <h5 className="font-bold">All Programs</h5>
-                                <img src="/ui/icons/icon__green_arrow--large.png" className="mr-3" width="20" height="20" />
+                                <img src="/ui/icons/system/icon__green_arrow--large.png" className="mr-3" width="20" height="20" />
                             </button>
                             {isAllProgramsOpen && <StartMenuSubMenu data={subMenus.allPrograms} />}
                         </div>
@@ -115,13 +115,13 @@ const StartMenu = ({ startButton }: StartMenuProps) => {
                 <ul className="flex justify-end gap-2 p-2">
                     <li>
                         <button className="flex items-center p-2" onClick={() => onShutDownModalButtonHandler(true)}>
-                            <img src="/ui/icons/icon__log_out--large.png" className="mr-2" width="22" height="22" />
+                            <img src="/ui/icons/system/icon__log_out--large.png" className="mr-2" width="22" height="22" />
                             <h6>Log Off</h6>
                         </button>
                     </li>
                     <li>
                         <button className="flex items-center p-2" onClick={() => onShutDownModalButtonHandler()}>
-                            <img src="/ui/icons/icon__shut_down--large.png" className="mr-2" width="22" height="22" />
+                            <img src="/ui/icons/system/icon__shut_down--large.png" className="mr-2" width="22" height="22" />
                             <h6>Turn Off Computer</h6>
                         </button>
                     </li>

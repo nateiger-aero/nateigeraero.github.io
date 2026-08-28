@@ -18,7 +18,7 @@
     }
 
     .sprite {
-            background-image: url("/assets/clippy__spritemap.png");
+            background-image: url("/assets/programs/sprites/clippy__spritemap.png");
         background-repeat: no-repeat;
         image-rendering: pixelated;
         pointer-events: none;
@@ -48,7 +48,7 @@
 
         &:after {
             content: "";
-            background: url("/ui/icons/spritesheet__window_ui.png");
+            background: url("/ui/windows/spritesheet__window_ui.png");
             background-size: 7rem 1.7rem;
             background-position-x: 0;
             position: absolute;

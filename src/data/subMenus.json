@@ -1,0 +1,80 @@
+{
+    "allPrograms": {
+        "id": "allPrograms",
+        "featured": [
+            {
+                "appId": "programDefaults"
+            },
+            {
+                "appId": "winCatalog"
+            },
+            {
+                "appId": "winUpdate"
+            }
+        ],
+        "contents": [
+            {
+                "appId": "accessories",
+                "subMenu": "accessories"
+            },
+            {
+                "appId": "games",
+                "subMenu": "games"
+            },
+            {
+                "appId": "startup",
+                "subMenu": "startup"
+            },
+            {
+                "appId": "internetExplorer"
+            },
+            {
+                "appId": "outlook"
+            },
+            {
+                "appId": "remoteAssistance"
+            },
+            {
+                "appId": "winMediaPlayer"
+            },
+            {
+                "appId": "winMessenger"
+            },
+            {
+                "appId": "winMovieMaker"
+            }
+        ]
+    },
+    "recentDocuments": {
+        "id": "recentDocuments",
+        "contents": []
+    },
+    "startup": {
+        "contents": []
+    },
+    "games": {
+        "contents": [
+            {
+                "appId": "solitaire"
+            }
+        ]
+    },
+    "accessories": {
+        "contents": [
+            {
+                "appId": "paint"
+            }
+        ]
+    },
+    "placeholder1": {
+        "contents": [
+            {
+                "appId": "placeholder1",
+                "subMenu": "placeholder2"
+            }
+        ]
+    },
+    "placeholder2": {
+        "contents": []
+    }
+}

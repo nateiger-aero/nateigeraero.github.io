@@ -1,0 +1,66 @@
+import filesJSON from "../data/files.json";
+import { generateUniqueId } from "../utils/general";
+import { defaultWallpaper } from "./defaults";
+import type { State, Action } from "./types";
+
+export const reducer = (state: State, action: Action): State => {
+    switch (action.type) {
+    case "SET_WALLPAPER":
+        return { ...state, wallpaper: action.payload };
+    case "SET_CURRENT_TIME":
+        return { ...state, currentTime: action.payload };
+    case "SET_CURRENT_WINDOWS":
+        return { ...state, currentWindows: action.payload };
+    case "SET_IS_START_VISIBLE":
+        return { ...state, isStartVisible: action.payload };
+    case "SET_IS_ALL_PROGRAMS_OPEN":
+        return { ...state, isAllProgramsOpen: action.payload };
+    case "SET_IS_RECENT_DOCUMENTS_OPEN":
+        return { ...state, isRecentDocumentsOpen: action.payload };
+    case "SET_IS_SHUTDOWN_MODAL_OPEN":
+        return { ...state, isShutDownModalOpen: action.payload };
+    case "SET_WINDOWS_INITIATION_STATE":
+        return { ...state, windowsInitiationState: action.payload };
+    case "SET_INITIATION_STAGE":
+        return { ...state, initiationStage: action.payload };
+    case "SET_IS_INITIAL_BOOT":
+        return { ...state, isInitialBoot: action.payload };
+    case "SET_TRANSITION_LABEL":
+        return { ...state, transitionLabel: action.payload };
+    case "SET_RECYCLED_ITEMS":
+        return { ...state, recycledItems: action.payload };
+    case "SET_IS_CLIPPY_MINIMISED":
+        return { ...state, isClippyMinimised: action.payload };
+    case "SET_IS_CRT_ENABLED": 
+        return { ...state, isCRTEnabled: action.payload };
+    case "SET_THEME_COLOR":
+        return { ...state, themeColor: action.payload };
+    case "SET_SAVED_IMAGES":
+        return { ...state, savedImages: action.payload };
+    default:
+        return state;
+    }
+};
+
+export const initialState: State = {
+    wallpaper: sessionStorage.getItem("wallpaper") || defaultWallpaper,
+    currentTime: new Date(),
+    currentWindows: [{
+        id: generateUniqueId(),
+        appId: "readme",
+    },
+    ],
+    isStartVisible: false,
+    isAllProgramsOpen: false,
+    isRecentDocumentsOpen: false,
+    isShutDownModalOpen: false,
+    windowsInitiationState: "bios",
+    initiationStage: 0,
+    isInitialBoot: true,
+    transitionLabel: "",
+    isCRTEnabled: true,
+    themeColor: "blue",
+    recycledItems: [...filesJSON.recycleBin],
+    isClippyMinimised: typeof window !== "undefined" && sessionStorage.getItem("isClippyMinimised") === "true",
+    savedImages: [],
+};

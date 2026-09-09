@@ -212,15 +212,15 @@ const FileExplorer = ({ appId }: Record<string, string>) => {
                         <CollapseBox title="File & Folder Tasks">
                             <ul className="flex flex-col gap-2 p-3">
                                 <li className="flex items-center">
-                                        <img src="/ui/icons/system/icon__new_folder--large.png" className="mr-2" width="12" height="12" />
+                                    <img src="/ui/icons/system/icon__new_folder--large.png" className="mr-2" width="12" height="12" />
                                     <p>Make a new folder</p>
                                 </li>
                                 <li className="flex items-start">
-                                        <img src="/ui/icons/system/icon__publish_web--large.png" className="mr-2" width="12" height="12" />
+                                    <img src="/ui/icons/system/icon__publish_web--large.png" className="mr-2" width="12" height="12" />
                                     <p>Publish this folder to the web</p>
                                 </li>
                                 <li className="flex items-center">
-                                        <img src="/ui/icons/system/icon__file_explorer.png" className="mr-2" width="12" height="12" />
+                                    <img src="/ui/icons/system/icon__file_explorer.png" className="mr-2" width="12" height="12" />
                                     <p>Share this folder</p>
                                 </li>
                             </ul>
